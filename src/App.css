@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.login__input {
+    background-color: #C4C4C4;
+    border: none;
+    border-radius: 20px;
+    padding: 12px;
+    font-size: 36px;
+    
+}
