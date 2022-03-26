@@ -6,6 +6,7 @@ services:
             context: .
         ports:
             - '8000:8000'
+        restart: always
         volumes:
             - ./rr_project:/usr/src/rr_app
         command: >
