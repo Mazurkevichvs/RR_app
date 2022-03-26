@@ -1,31 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
-import Button from './components/button';
+import {Home, LogIn, Generator} from './pages';
+import {Routes, Route} from 'react-router-dom';
 
 
 function App() {
-  const [isStarted, setisStarted] = useState(false);
-  
-  const updateData = () => {
-    setisStarted(!isStarted)
-  }
 
-  function clickToStart() {
-    return(
-      <div className='container'>
-      <input className='login__input' type="text" placeholder='example@mail.com '/>
-      <Button name={"log-in with Email"}/>
-      <Button name={"Continue offline"}/>
-      </div>
-      
-    )
-  }
-
-  return (
-    <div className="App">
-      {isStarted ? clickToStart() : <Button updateData={updateData} name={"Get started"}/>}
-          
-    </div>
+  return ( 
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/LogIn" element={<LogIn/>}/>
+      <Route path="/Generator" element={<Generator/>}/>
+    </Routes>
   );
 }
 

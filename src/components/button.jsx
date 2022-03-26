@@ -2,6 +2,7 @@ import React from 'react';
 import "./button.scss";
 
 
+
 function Button({updateData,name}) { 
 
   return (
