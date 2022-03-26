@@ -11,10 +11,6 @@ from recipe import serializers
 RECIPE_LIST = reverse('recipe:recipe-list')
 
 
-def detail_url(recipe_id):
-    return reverse('recipe:recipe-detail', args=[recipe_id])
-
-
 def sample_recipe(**params):
     defaults = {
         'title': 'Sample recipe',
@@ -55,7 +51,7 @@ class PublicRecipeApiTests(TestCase):
     def test_retrieve_recipe_by_id(self):
         recipe1 = sample_recipe()
 
-        url = detail_url(recipe1.id)
+        url = get_absolute_url()
         res = self.client.get(url)
 
         serializer = serializers.RecipeDetailSerializer(recipe1)
