@@ -50,8 +50,8 @@ class PublicRecipeApiTests(TestCase):
 
     def test_retrieve_recipe_by_id(self):
         recipe1 = sample_recipe()
-
-        url = get_absolute_url()
+        
+        url = recipe1.get_absolute_url()
         res = self.client.get(url)
 
         serializer = serializers.RecipeDetailSerializer(recipe1)
