@@ -6,8 +6,8 @@ function LogIn() {
   return (
     <div className='container'>
       <input className='login__input' type="text" placeholder='example@mail.com '/>
-      <Link to="/Generator"><Button name={"log-in with Email"}/></Link>
-      <Button name={"Continue offline"}/>
+      <Link to="/Generator"><Button className={"btn__logs"} name={"log-in with Email"}/></Link>
+      <Button className={"btn__logs"} name={"Continue offline"}/>
     </div>
   )
 }

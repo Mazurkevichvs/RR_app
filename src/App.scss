@@ -5,7 +5,13 @@
   flex-direction: column; 
   justify-content: center;
   align-items: center;
+     a{
+      width: 100%;
+      max-width: 520px;
+  }
 }
+
+
 
 .login__input {
     background-color: #C4C4C4;
@@ -15,6 +21,3 @@
     font-size: 36px;
 }
 
-.btn__log {
-    width: 10px;
-}

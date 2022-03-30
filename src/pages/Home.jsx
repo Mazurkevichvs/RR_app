@@ -11,7 +11,7 @@ function Home() {
 
   return (
     <div className='container'>
-      <Link to='/LogIn'><Button name={"Get started"}/></Link>
+      <Link to='/LogIn'><Button className={"btn__start"} name={"Get started"}/></Link>
     </div>
     
   )

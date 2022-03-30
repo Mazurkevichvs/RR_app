@@ -4,12 +4,34 @@
    background-color: #A73737;
    border: none;
    font-size: 36px;
-   padding: 70px 0px;
-   width: 520px;
    border-radius: 25px;
    color: #fff;
-   margin-top: 40px;
+   transition: all .5s ease;
     &:hover {
         background-color: #9e2323;
     }
+}
+
+.btn__logs {
+    padding: 70px 0px;
+   width: 100%;
+   max-width: 520px;
+   margin-top: 40px;
+}
+
+.btn__start {
+    padding: 70px 0px;
+   width: 100%;
+   max-width: 520px;
+}
+
+.btn__generate {
+    padding: 50px 100px;
+}
+
+.btn__log {
+    padding: 20px 40px;
+    max-width: 180px;
+    margin: 0 30px;
+
 }

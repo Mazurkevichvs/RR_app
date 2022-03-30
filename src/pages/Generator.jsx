@@ -1,13 +1,31 @@
-import React from 'react'
-import Button from '../components/button'
+import React from 'react';
+import { Recipe, Button } from '../components';
+import "./Generator.scss";
+
 
 function Generator() {
   return (
-    <div >
-        <p>User: example@mail.com</p>
-        <Button className="btn__log" name={"Log in"}/>
-
-    </div>
+    <>
+    <section className="wrapper">
+      <header>
+          <input className='login__input' type="text" placeholder='example@mail.com '/>
+          <button className='btn btn__log'>Log in</button>
+        </header>
+        <main>
+          <aside>
+              <ul>
+                <li>Breakfast</li>
+                <li>Lunch</li>
+                <li>Dinner</li>
+              </ul>
+          </aside>
+          <Button className={"btn__generate"} name={"Generate recipe"}/>
+        </main>
+    </section>
+      
+      <Recipe/>
+      
+    </>
   )
 }
 

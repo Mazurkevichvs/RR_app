@@ -3,10 +3,10 @@ import "./button.scss";
 
 
 
-function Button({updateData,name}) { 
+function Button({className,updateData,name}) { 
 
   return (
-    <button onClick={updateData} className='btn'>{name}</button>
+    <button onClick={updateData} className={className ? `btn ${className}` : "btn"}>{name}</button>
   )
 }
 
