@@ -9,11 +9,24 @@ class Recipe(models.Model):
     slug = models.CharField(max_length=255)
 
     class Meta:
-        verbose_name='recipe'
-        verbose_name_plural='recipes'
+        verbose_name = 'recipe'
+        verbose_name_plural = 'recipes'
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('recipe:recipe-detail', args=[self.id])
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=100)
+
+
+    class Meta:
+        verbose_name = 'ingredient'
+        verbose_name_plural = 'ingredients'
+
+
+    def __str__(self):
+        return self.name

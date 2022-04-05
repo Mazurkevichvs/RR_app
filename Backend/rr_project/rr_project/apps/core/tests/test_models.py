@@ -1,10 +1,10 @@
 from django.test import TestCase
 
 
-from core.models import Recipe
+from core.models import Recipe, Ingredient
 
 
-class ModelTests(TestCase):
+class RecipeModelTests(TestCase):
 
     def test_recipe_str(self):
         """Test the recipe string representation"""
@@ -14,3 +14,14 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(recipe), recipe.title)
+
+
+class IngredientModelTests(TestCase):
+
+    def test_ingredient_str(self):
+        """Test the ingredient strin representation"""
+        ingredient = Ingredient.objects.create(
+            name='Chicken breast'
+        )
+
+        self.assertEqual(str(ingredient), ingredient.name)
