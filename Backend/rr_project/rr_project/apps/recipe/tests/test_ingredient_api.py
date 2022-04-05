@@ -8,7 +8,7 @@ from core.models import Recipe, Ingredient
 from recipe import serializers
 
 
-INGREDIENTS_URL = reverse('recipe:ingredient-list')
+INGREDIENT_LIST = reverse('recipe:ingredient-list')
 
 
 class PublicIngredientApiTests(TestCase):
@@ -18,7 +18,7 @@ class PublicIngredientApiTests(TestCase):
 
 
     def test_access_to_site_as_offline_user(self):
-        res = self.client.get(INGREDIENTS_URL)
+        res = self.client.get(INGREDIENT_LIST)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
@@ -27,10 +27,27 @@ class PublicIngredientApiTests(TestCase):
         Ingredient.objects.create(name='Sugar')
         Ingredient.objects.create(name='Vanilia')
 
-        res = self.client.get(INGREDIENTS_URL)
+        res = self.client.get(INGREDIENT_LIST)
 
         ingredients = Ingredient.objects.all()
         serializer = serializers.IngredientSerializer(ingredients, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
+
+
+    def test_ingredient_create_successful(self):
+        payload = {'name': 'Sample ingredient'}
+        self.client.post(reverse('recipe:ingredient-create'), payload)
+
+        exists = Ingredient.objects.filter(
+            name=payload['name'],
+        ).exists()
+        self.assertTrue(exists)
+
+
+    def test_create_ingredient_invalid(self):
+        payload = {'name': ''}
+        res = self.client.post(reverse('recipe:ingredient-create'), payload)
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)

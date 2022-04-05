@@ -7,7 +7,7 @@ class Recipe(models.Model):
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField(default=0)
     slug = models.CharField(max_length=255)
-    ingredients = models.ManyToManyField('Ingredient')
+    ingredients = models.ManyToManyField('Ingredient', blank=True)
 
 
     class Meta:

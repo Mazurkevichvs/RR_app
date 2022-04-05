@@ -66,6 +66,22 @@ class PublicRecipeApiTests(TestCase):
         self.assertEqual(res.data, serializer.data)
 
 
+    def test_create_recipe(self):
+        payload = {
+            'title': 'Cocoa with milk',
+            'description': 'Put coco into milk and stir',
+            'time_minutes': 5,
+            'slug': 'milk_cocoa',
+        }
+
+        res = self.client.post(reverse('recipe:recipe-create'), payload)
+
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        recipe = Recipe.objects.get(id=res.data['id'])
+        for key in payload.keys():
+            self.assertEqual(payload[key], getattr(recipe, key))
+
+
     def test_create_recipe_with_ingredients(self):
         ingredient1 = sample_ingredient(name='Milk')
         ingredient2 = sample_ingredient(name='Cocoa')
@@ -77,10 +93,43 @@ class PublicRecipeApiTests(TestCase):
             'ingredients': [ingredient1.id, ingredient2.id],
         }
         res = self.client.post(reverse('recipe:recipe-create'), payload)
-        
+
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=res.data['id'])
         ingredients = recipe.ingredients.all()
         self.assertEqual(ingredients.count(), 2)
         self.assertIn(ingredient1, ingredients)
         self.assertIn(ingredient2, ingredients)
+
+
+    def test_partial_update_recipe(self):
+        recipe = sample_recipe()
+        recipe.ingredients.add(sample_ingredient())
+        payload = {'title': 'Sauce for meat', 'slug': 'meat_sauce'}
+        url = recipe.get_absolute_url()
+        self.client.patch(url, payload)
+
+        recipe.refresh_from_db()
+        self.assertEqual(recipe.title, payload['title'])
+        self.assertEqual(recipe.slug, payload['slug'])
+        ingredients = recipe.ingredients.all()
+        self.assertEqual(len(ingredients), 1)
+
+
+    def test_full_update_recipe(self):
+        recipe = sample_recipe()
+        recipe.ingredients.add(sample_ingredient())
+        payload = {
+            'title': 'Spaghetti carbonara',
+            'time_minutes': 25,
+            'slug': 'carbonara'
+        }
+        url = recipe.get_absolute_url()
+        self.client.put(url, payload)
+
+        recipe.refresh_from_db()
+        self.assertEqual(recipe.title, payload['title'])
+        self.assertEqual(recipe.time_minutes, payload['time_minutes'])
+        self.assertEqual(recipe.slug, payload['slug'])
+        ingredients = recipe.ingredients.all()
+        self.assertEqual(len(ingredients), 0)
