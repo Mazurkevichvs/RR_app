@@ -2,6 +2,7 @@ from django.test import TestCase
 
 
 from core.models import Recipe, Ingredient
+from recipe.tests.test_recipe_api import sample_ingredient, sample_recipe
 
 
 class RecipeModelTests(TestCase):
@@ -25,3 +26,11 @@ class IngredientModelTests(TestCase):
         )
 
         self.assertEqual(str(ingredient), ingredient.name)
+
+
+    def test_recipe_is_related_to_ingredient(self):
+        ingredient = sample_ingredient()
+        recipe = sample_recipe()
+        recipe.ingredients.add(ingredient)
+        recipe.save()
+        self.assertIn(recipe, ingredient.recipe_set.all())
