@@ -1,12 +1,10 @@
 import React from 'react';
 import "./button.scss";
 
-
-
-function Button({className,updateData,name}) { 
+function Button({onClick,className,name}) { 
 
   return (
-    <button onClick={updateData} className={className ? `btn ${className}` : "btn"}>{name}</button>
+    <button onClick={onClick} className={className ? `btn ${className}` : "btn"}>{name}</button>
   )
 }
 
