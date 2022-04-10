@@ -25,6 +25,7 @@ class ListApi(APIView):
                 args=(first_recipe.id,)
             ),
             'Create-recipe': reverse('recipe:recipe-create', request=request),
+            'Random-recipe': reverse('recipe:recipe-random', request=request),
         }
 
         return Response(api_urls)
