@@ -4,7 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from core.models import Recipe, Ingredient
+from core.models import Recipe
 from recipe import serializers
 
 
@@ -17,15 +17,12 @@ def sample_recipe(**params):
         'description': 'Sample description',
         'time_minutes': 10,
         'slug': 'sample_slug',
+        'ingredients': 'sample, ingredients'
     }
 
     defaults.update(params)
 
     return Recipe.objects.create(**defaults)
-
-
-def sample_ingredient(name='Sample ingredient'):
-    return Ingredient.objects.create(name=name)
 
 
 class PublicRecipeApiTests(TestCase):
@@ -56,7 +53,6 @@ class PublicRecipeApiTests(TestCase):
 
     def test_retrieve_recipe_by_id(self):
         recipe1 = sample_recipe()
-        recipe1.ingredients.add(sample_ingredient())
 
         url = recipe1.get_absolute_url()
         res = self.client.get(url)
@@ -72,6 +68,7 @@ class PublicRecipeApiTests(TestCase):
             'description': 'Put coco into milk and stir',
             'time_minutes': 5,
             'slug': 'milk_cocoa',
+            'ingredients': 'milk, cocoa'
         }
 
         res = self.client.post(reverse('recipe:recipe-create'), payload)
@@ -82,29 +79,8 @@ class PublicRecipeApiTests(TestCase):
             self.assertEqual(payload[key], getattr(recipe, key))
 
 
-    def test_create_recipe_with_ingredients(self):
-        ingredient1 = sample_ingredient(name='Milk')
-        ingredient2 = sample_ingredient(name='Cocoa')
-        payload = {
-            'title': 'Cocoa with milk',
-            'description': 'Put coco into milk and stir',
-            'time_minutes': 5,
-            'slug': 'milk_cocoa',
-            'ingredients': [ingredient1.id, ingredient2.id],
-        }
-        res = self.client.post(reverse('recipe:recipe-create'), payload)
-
-        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        recipe = Recipe.objects.get(id=res.data['id'])
-        ingredients = recipe.ingredients.all()
-        self.assertEqual(ingredients.count(), 2)
-        self.assertIn(ingredient1, ingredients)
-        self.assertIn(ingredient2, ingredients)
-
-
     def test_partial_update_recipe(self):
         recipe = sample_recipe()
-        recipe.ingredients.add(sample_ingredient())
         payload = {'title': 'Sauce for meat', 'slug': 'meat_sauce'}
         url = recipe.get_absolute_url()
         self.client.patch(url, payload)
@@ -112,17 +88,15 @@ class PublicRecipeApiTests(TestCase):
         recipe.refresh_from_db()
         self.assertEqual(recipe.title, payload['title'])
         self.assertEqual(recipe.slug, payload['slug'])
-        ingredients = recipe.ingredients.all()
-        self.assertEqual(len(ingredients), 1)
 
 
     def test_full_update_recipe(self):
         recipe = sample_recipe()
-        recipe.ingredients.add(sample_ingredient())
         payload = {
             'title': 'Spaghetti carbonara',
             'time_minutes': 25,
-            'slug': 'carbonara'
+            'slug': 'carbonara',
+            'ingredients': 'bacon'
         }
         url = recipe.get_absolute_url()
         self.client.put(url, payload)
@@ -131,5 +105,3 @@ class PublicRecipeApiTests(TestCase):
         self.assertEqual(recipe.title, payload['title'])
         self.assertEqual(recipe.time_minutes, payload['time_minutes'])
         self.assertEqual(recipe.slug, payload['slug'])
-        ingredients = recipe.ingredients.all()
-        self.assertEqual(len(ingredients), 0)
