@@ -105,3 +105,19 @@ class PublicRecipeApiTests(TestCase):
         self.assertEqual(recipe.title, payload['title'])
         self.assertEqual(recipe.time_minutes, payload['time_minutes'])
         self.assertEqual(recipe.slug, payload['slug'])
+
+
+    def test_retrive_random_recipe(self):
+        recipe1 = sample_recipe()
+        recipe2 = sample_recipe()
+        recipe3 = sample_recipe()
+        serializer1 = serializers.RecipeSerializer(recipe1)
+        serializer2 = serializers.RecipeSerializer(recipe2)
+        serializer3 = serializers.RecipeSerializer(recipe3)
+        list_of_recipes = [serializer1.data, serializer2.data, serializer3.data]
+
+        res = self.client.get(reverse('recipe:recipe-random'))
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertTrue(res.data['id'])
+        self.assertIn(res.data, list_of_recipes)
