@@ -7,16 +7,27 @@ import {UserContext} from '../UserContext';
 function LogIn() {
 
 const {login, setLogin} = useContext(UserContext);
+const [input, setInput] = useState(null);
 
-const onChangeLogin = (event) => {
-  setLogin(event.target.value)
+const onChangeInput = (event) => {
+  setInput(event.target.value)
+}
+
+const logIn = () => {
+  if(input != null) {
+    setLogin(input);
+    setInput(null);
+  }
+  else {
+    console.log("Problem")
+  }
+  
 }
 
   return (
       <div className='container'>
-        <input onChange={onChangeLogin} className='login__input' type="text" placeholder='example@mail.com '/>
-        <div>{login}</div>
-        <Link to="/Generator"><Button  className={"btn__logs"} name={"log-in with Email"}/></Link>
+        <input onChange={onChangeInput} className='login__input' type="text" placeholder='example@mail.com '/>
+        <Link to="/Generator"><Button onClick={logIn} className={"btn__logs"} name={"log-in with Email"}/></Link>
         <Link to="/Generator"><Button className={"btn__logs"} name={"Continue offline"}/></Link>
       </div>        
   )

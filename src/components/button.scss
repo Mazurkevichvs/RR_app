@@ -9,6 +9,7 @@
    transition: all .5s ease;
     &:hover {
         background-color: #9e2323;
+        transform: scale(101%);
     }
 }
 
@@ -23,10 +24,12 @@
     padding: 70px 0px;
    width: 100%;
    max-width: 520px;
+   
 }
 
 .btn__generate {
     padding: 50px 100px;
+    max-width: 500px;
 }
 
 .btn__log {
