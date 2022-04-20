@@ -19,20 +19,22 @@ class ListApi(APIView):
         first_recipe = Recipe.objects.first()
         api_urls = {
             'List-recipes': reverse('recipe:recipe-list', request=request),
-            'Detail-recipe': reverse(
-                'recipe:recipe-detail',
-                request=request,
-                args=(first_recipe.id,)
-            ),
             'Create-recipe': reverse('recipe:recipe-create', request=request),
             'Random-recipe': reverse('recipe:recipe-random', request=request),
         }
-
-        return Response(api_urls)
+        if not first_recipe:
+            return Response(api_urls)
+        else:
+            api_urls['Detail-recipe'] = reverse(
+                'recipe:recipe-detail',
+                request=request,
+                args=(first_recipe.id,)
+            )
+            return Response(api_urls)
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('api/', ListApi.as_view()),
     path('api/', include(api_urls)),
 ]

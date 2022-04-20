@@ -105,3 +105,5 @@ venv.bak/
 
 # Environment variables
 .env.dev
+
+migrations/

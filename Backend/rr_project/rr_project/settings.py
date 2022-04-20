@@ -40,7 +40,7 @@ ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS').split(' ')
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -53,7 +53,12 @@ INSTALLED_APPS = [
     # apps
     'core',
     'recipe',
+    'account',
 ]
+
+# Custom user model
+AUTH_USER_MODEL = 'core.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
