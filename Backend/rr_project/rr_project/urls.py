@@ -10,6 +10,7 @@ from core.models import Recipe
 
 api_urls = [
     path('recipe/', include('recipe.urls'), name='recipe-api'),
+    path('account/', include('account.urls'), name='account-api')
 ]
 
 

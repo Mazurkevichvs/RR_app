@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 from django.conf import settings
 
 
@@ -10,21 +10,28 @@ from .managers import CustomUserManager
 User = settings.AUTH_USER_MODEL
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser):
     email = models.EmailField(primary_key=True)
+    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
     REQUIRED_FIELDS = []
     USERNAME_FIELD = 'email'
+
     is_anonymous = False
     is_authenticated = True
 
-    object = CustomUserManager()
+    objects = CustomUserManager()
+
 
     def __str__(self):
         return self.email
 
 
 class Recipe(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True, related_name='user_recipes')
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField(default=0)
