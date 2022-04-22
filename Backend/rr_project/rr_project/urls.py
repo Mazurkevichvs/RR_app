@@ -22,6 +22,13 @@ class ListApi(APIView):
             'List-recipes': reverse('recipe:recipe-list', request=request),
             'Create-recipe': reverse('recipe:recipe-create', request=request),
             'Random-recipe': reverse('recipe:recipe-random', request=request),
+            'Account-login': reverse('account:login', request=request),
+            'Account-token':
+                reverse('account:token_obtain_pair', request=request),
+            'Account-token-refresh':
+                reverse('account:token_refresh', request=request),
+            'Account-create': reverse('account:create', request=request),
+            'Account-me': reverse('account:me', request=request),
         }
         if not first_recipe:
             return Response(api_urls)
