@@ -1,5 +1,7 @@
 from random import choice
 from django.shortcuts import redirect
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
@@ -9,6 +11,9 @@ from rest_framework.generics import (
 
 from recipe import serializers
 from core.models import Recipe
+from core.permissions import (
+    IsOwnerOrIsAdminUser,
+)
 
 
 class RecipeListAPIView(ListAPIView):
@@ -25,11 +30,28 @@ class RecipeDetailAPIView(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 
+    def get_permissions(self):
+        if self.request.method in ['PUT', 'DELETE', 'PATCH']:
+            return [IsOwnerOrIsAdminUser()]
+        return []
+
+
+    def get_authenticators(self):
+        if self.request.method in ['PUT', 'DELETE', 'PATCH']:
+            return [JWTAuthentication()]
+        return []
+
+
 recipe_detail_api_view = RecipeDetailAPIView.as_view()
 
 
 class RecipeCreateAPIView(CreateAPIView):
     serializer_class = serializers.RecipeSerializer
+    permission_classes = [IsAuthenticated]
+
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 recipe_create_api_view = RecipeCreateAPIView.as_view()
@@ -37,6 +59,7 @@ recipe_create_api_view = RecipeCreateAPIView.as_view()
 
 class RandomRecipeAPIView(ListAPIView):
     serializer_class = serializers.RecipeSerializer
+
 
     def get_queryset(self):
         result_id = 0
@@ -47,3 +70,21 @@ class RandomRecipeAPIView(ListAPIView):
 
 
 random_api_view = RandomRecipeAPIView.as_view()
+
+
+class RandomPrivateRecipeAPIView(ListAPIView):
+    serializer_class = serializers.RecipeSerializer
+    permission_classes = [IsAuthenticated]
+
+
+    def get_queryset(self):
+        user = self.request.user
+        result_id = 0
+        if Recipe.objects.filter(user=user):
+            if Recipe.objects.first():
+                ids = Recipe.objects.values_list('id', flat=True)
+                result_id = choice(ids)
+        return Recipe.objects.filter(id=result_id)
+
+
+random_private_api_view = RandomPrivateRecipeAPIView.as_view()
