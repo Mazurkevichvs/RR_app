@@ -1,6 +1,13 @@
 from rest_framework import serializers
 
-from core.models import Recipe
+from core.models import Recipe, Category
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = ('name',)
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -13,4 +20,9 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 
 class RecipeDetailSerializer(RecipeSerializer):
-    pass
+    category = serializers.StringRelatedField(read_only=True)
+
+
+    class Meta:
+        model = Recipe
+        fields = ('__all__')

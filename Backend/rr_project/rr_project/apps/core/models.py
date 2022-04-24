@@ -30,9 +30,33 @@ class User(AbstractBaseUser):
         return self.email
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+
+    def __str__(self):
+        return self.name
+
+
 class Recipe(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null = True, related_name='user_recipes')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null = True,
+        related_name='user_recipes'
+    )
     title = models.CharField(max_length=255)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='recipes'
+    )
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField(default=0)
     slug = models.CharField(max_length=255)
