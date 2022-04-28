@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faArrowUpLong} from '@fortawesome/free-solid-svg-icons';
 import './Recipe.scss';
 
-function Recipe({scrollToDiv,recipeRef}) {
+function Recipe({scrollTop,recipeRef}) {
   return (
     <footer ref={recipeRef}>
         <section className='recipe__top'>   
-          <div className='arrow'><FontAwesomeIcon icon={faArrowUpLong} /></div>
+          <div onClick={() => scrollTop()} className='arrow'><FontAwesomeIcon icon={faArrowUpLong} /></div>
           <p className='username'>by User123</p>
         </section>
         <section className='recipe__description'>
