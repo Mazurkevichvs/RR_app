@@ -49,7 +49,7 @@ function Generator({logIn, logOut}) {
         </main>
     </section>
       
-      <Recipe scrollTop={scrollTop} recipeRef={recipeRef}/>
+      {login || <Recipe scrollTop={scrollTop} recipeRef={recipeRef}/> }
       
     </>
   )

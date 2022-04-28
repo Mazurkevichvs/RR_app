@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import './Aside.scss'
+import Button from './button';
 
 function Aside({meals}) {
 
@@ -21,6 +22,7 @@ function Aside({meals}) {
         <ul>
             {listItem}
         </ul>
+        <Button className={"btn__add__recipe"} name={"+"}/>
     </aside>
   )
 }
