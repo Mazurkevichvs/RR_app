@@ -1,7 +1,7 @@
 from random import choice
 from django.shortcuts import redirect
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
@@ -94,7 +94,6 @@ class RandomPrivateRecipeAPIView(ListAPIView):
                 ids = user_filter.values_list('id', flat=True)
                 result_id = choice(ids)
         return Recipe.objects.filter(id=result_id)
-
 
 
 random_private_api_view = RandomPrivateRecipeAPIView.as_view()

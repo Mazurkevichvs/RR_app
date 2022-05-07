@@ -3,6 +3,7 @@ from django.urls import path, include
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 from core.models import Recipe
@@ -43,6 +44,11 @@ class ListApi(APIView):
                 args=(first_recipe.id,)
             )
             return Response(api_urls)
+
+
+    def get_authenticators(self):
+        if self.request.method == 'GET':
+            return []
 
 
 urlpatterns = [
