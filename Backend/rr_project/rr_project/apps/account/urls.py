@@ -17,5 +17,4 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('create/', create_user_view, name='create'),
     path('me/', manage_user_view, name='me'),
-
 ]

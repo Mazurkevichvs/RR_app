@@ -55,10 +55,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_token(self, user):
         token = RefreshToken.for_user(user)
-        refresh = str(token)
         access = str(token.access_token)
         data = {
-            "refresh": refresh,
             "access": access
         }
         return data
