@@ -1,18 +1,14 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import (
-    CreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-)
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.middleware import csrf
-
+from rest_framework import status
+from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import UserSerializer
 
@@ -20,7 +16,7 @@ from .serializers import UserSerializer
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
     return {
-        'access': str(refresh.access_token),
+        "access": str(refresh.access_token),
     }
 
 
@@ -46,23 +42,24 @@ token_view = MyTokenObtainPairView.as_view()
 
 
 class LoginView(APIView):
-
     def post(self, request, format=None):
         data = request.data
         response = Response()
-        username = data.get('username', None)
-        password = data.get('password', None)
+        username = data.get("username", None)
+        password = data.get("password", None)
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
                 data = get_tokens_for_user(user)
                 response.set_cookie(
-                    key=settings.SIMPLE_JWT['AUTH_COOKIE'],
+                    key=settings.SIMPLE_JWT["AUTH_COOKIE"],
                     value=data["access"],
-                    secure=settings.SIMPLE_JWT['AUTH_COOKIE_SECURE'],
-                    httponly=settings.SIMPLE_JWT['AUTH_COOKIE_HTTP_ONLY'],
-                    samesite=settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE'],
-                    max_age=int(settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'].total_seconds()),
+                    secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                    httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
+                    samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                    max_age=int(
+                        settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds()
+                    ),
                 )
                 csrf.get_token(request)
                 response.data = {"Success": "Login successfully", "data": data}
@@ -70,12 +67,12 @@ class LoginView(APIView):
             else:
                 return Response(
                     {"No active": "This account is not active!!"},
-                    status=status.HTTP_404_NOT_FOUND
+                    status=status.HTTP_404_NOT_FOUND,
                 )
         else:
             return Response(
                 {"Invalid": "Invalid username or password!!"},
-                status=status.HTTP_404_NOT_FOUND
+                status=status.HTTP_404_NOT_FOUND,
             )
 
 
@@ -84,6 +81,7 @@ login_view = LoginView.as_view()
 
 class CreateUserView(CreateAPIView):
     """Create a new user in the system"""
+
     serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
@@ -91,12 +89,13 @@ class CreateUserView(CreateAPIView):
         data = {}
         if serializer.is_valid():
             user = serializer.save()
-            data['response'] = 'Successfully registered a new user!'
-            data['email'] = user.email
-            data['token'] = serializer.get_token(user)
-            new_user = authenticate(email=request.POST.get('email'),
-                                    password=request.POST.get('password'),
-                                    )
+            data["response"] = "Successfully registered a new user!"
+            data["email"] = user.email
+            data["token"] = serializer.get_token(user)
+            new_user = authenticate(
+                email=request.POST.get("email"),
+                password=request.POST.get("password"),
+            )
             if new_user is not None and new_user.is_active:
                 login(request, new_user)
         else:
@@ -109,8 +108,11 @@ create_user_view = CreateUserView.as_view()
 
 class ManageUserView(RetrieveUpdateDestroyAPIView):
     """Manage the authenticated user"""
+
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [
+        IsAuthenticated,
+    ]
 
     def get_object(self):
         """Retrieve and return authentication user"""

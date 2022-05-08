@@ -1,11 +1,9 @@
+from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import AbstractBaseUser
-from django.conf import settings
-
 
 from .managers import CustomUserManager
-
 
 User = settings.AUTH_USER_MODEL
 
@@ -18,13 +16,12 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = []
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
     is_anonymous = False
     is_authenticated = True
 
     objects = CustomUserManager()
-
 
     def __str__(self):
         return self.email
@@ -33,11 +30,9 @@ class User(AbstractBaseUser):
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
-
     class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
-
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
@@ -45,32 +40,23 @@ class Category(models.Model):
 
 class Recipe(models.Model):
     user = models.ForeignKey(
-        User,
-        on_delete=models.SET_NULL,
-        null = True,
-        related_name='user_recipes'
+        User, on_delete=models.SET_NULL, null=True, related_name="user_recipes"
     )
     title = models.CharField(max_length=255)
     category = models.ForeignKey(
-        Category,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='recipes'
+        Category, on_delete=models.SET_NULL, null=True, related_name="recipes"
     )
     description = models.TextField(blank=True)
     time_minutes = models.IntegerField(default=0)
     slug = models.CharField(max_length=255)
-    ingredients = models.TextField(default='')
-
+    ingredients = models.TextField(default="")
 
     class Meta:
-        verbose_name = 'recipe'
-        verbose_name_plural = 'recipes'
-
+        verbose_name = "recipe"
+        verbose_name_plural = "recipes"
 
     def __str__(self):
         return self.title
 
-
     def get_absolute_url(self):
-        return reverse('recipe:recipe-detail', args=[self.id])
+        return reverse("recipe:recipe-detail", args=[self.id])

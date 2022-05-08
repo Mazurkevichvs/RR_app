@@ -1,19 +1,14 @@
 from random import choice
+
 from django.shortcuts import redirect
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveUpdateDestroyAPIView)
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from rest_framework.generics import (
-    ListAPIView,
-    CreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-)
 
-
-from recipe import serializers
 from core.models import Recipe
-from core.permissions import (
-    IsOwnerOrIsAdminUser,
-)
+from core.permissions import IsOwnerOrIsAdminUser
+from recipe import serializers
 
 
 class CategoryCreateAPIView(CreateAPIView):
@@ -35,14 +30,12 @@ recipe_list_api_view = RecipeListAPIView.as_view()
 class RecipeDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.RecipeSerializer
     queryset = Recipe.objects.all()
-    lookup_field = 'id'
-
+    lookup_field = "id"
 
     def get_permissions(self):
-        if self.request.method in ['PUT', 'DELETE', 'PATCH']:
+        if self.request.method in ["PUT", "DELETE", "PATCH"]:
             return [IsOwnerOrIsAdminUser()]
         return []
-
 
     # def get_authenticators(self):
     #     if self.request.method in ['PUT', 'DELETE', 'PATCH']:
@@ -57,7 +50,6 @@ class RecipeCreateAPIView(CreateAPIView):
     serializer_class = serializers.RecipeSerializer
     permission_classes = [IsAuthenticated]
 
-
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
@@ -68,11 +60,10 @@ recipe_create_api_view = RecipeCreateAPIView.as_view()
 class RandomRecipeAPIView(ListAPIView):
     serializer_class = serializers.RecipeDetailSerializer
 
-
     def get_queryset(self):
         result_id = 0
         if Recipe.objects.first():
-            ids = Recipe.objects.values_list('id', flat=True)
+            ids = Recipe.objects.values_list("id", flat=True)
             result_id = choice(ids)
         return Recipe.objects.filter(id=result_id)
 
@@ -84,14 +75,13 @@ class RandomPrivateRecipeAPIView(ListAPIView):
     serializer_class = serializers.RecipeDetailSerializer
     permission_classes = [IsAuthenticated]
 
-
     def get_queryset(self):
         user = self.request.user
         result_id = 0
         user_filter = Recipe.objects.filter(user=user)
         if user_filter:
             if user_filter.first():
-                ids = user_filter.values_list('id', flat=True)
+                ids = user_filter.values_list("id", flat=True)
                 result_id = choice(ids)
         return Recipe.objects.filter(id=result_id)
 
