@@ -1,10 +1,9 @@
+from core.models import Recipe
 from django.test import TestCase
 from django.urls import reverse
+from recipe import serializers
 from rest_framework import status
 from rest_framework.test import APIClient
-
-from core.models import Recipe
-from recipe import serializers
 
 RECIPE_LIST = reverse("recipe:recipe-list")
 

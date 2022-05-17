@@ -1,6 +1,5 @@
-from django.test import TestCase
-
 from core.models import Recipe
+from django.test import TestCase
 from recipe.tests.test_recipe_api import sample_recipe
 
 

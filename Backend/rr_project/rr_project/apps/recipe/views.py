@@ -1,14 +1,14 @@
 from random import choice
 
-from django.shortcuts import redirect
-from rest_framework.generics import (CreateAPIView, ListAPIView,
-                                     RetrieveUpdateDestroyAPIView)
-from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
-from rest_framework_simplejwt.authentication import JWTAuthentication
-
 from core.models import Recipe
 from core.permissions import IsOwnerOrIsAdminUser
+from django.shortcuts import redirect
 from recipe import serializers
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveUpdateDestroyAPIView)
+from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 class CategoryCreateAPIView(CreateAPIView):
@@ -22,6 +22,7 @@ category_create_api_view = CategoryCreateAPIView.as_view()
 class RecipeListAPIView(ListAPIView):
     serializer_class = serializers.RecipeSerializer
     queryset = Recipe.objects.all()
+    parser_classes = (MultiPartParser, FormParser)
 
 
 recipe_list_api_view = RecipeListAPIView.as_view()
@@ -29,6 +30,7 @@ recipe_list_api_view = RecipeListAPIView.as_view()
 
 class RecipeDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.RecipeSerializer
+    parser_classes = (MultiPartParser, FormParser)
     queryset = Recipe.objects.all()
     lookup_field = "id"
 
@@ -49,6 +51,7 @@ recipe_detail_api_view = RecipeDetailAPIView.as_view()
 class RecipeCreateAPIView(CreateAPIView):
     serializer_class = serializers.RecipeSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -59,6 +62,7 @@ recipe_create_api_view = RecipeCreateAPIView.as_view()
 
 class RandomRecipeAPIView(ListAPIView):
     serializer_class = serializers.RecipeDetailSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_queryset(self):
         result_id = 0
@@ -74,6 +78,7 @@ random_api_view = RandomRecipeAPIView.as_view()
 class RandomPrivateRecipeAPIView(ListAPIView):
     serializer_class = serializers.RecipeDetailSerializer
     permission_classes = [IsAuthenticated]
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_queryset(self):
         user = self.request.user

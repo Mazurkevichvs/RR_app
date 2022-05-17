@@ -1,6 +1,5 @@
-from rest_framework import serializers
-
 from core.models import Category, Recipe
+from rest_framework import serializers
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -11,6 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
+    image_url = serializers.ImageField(required=False)
 
     class Meta:
         model = Recipe

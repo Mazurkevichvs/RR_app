@@ -1,5 +1,4 @@
 from django.urls import path
-
 from recipe.views import (category_create_api_view, random_api_view,
                           random_private_api_view, recipe_create_api_view,
                           recipe_detail_api_view, recipe_list_api_view)
