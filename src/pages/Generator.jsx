@@ -1,16 +1,13 @@
-import React, { useContext, useState, useRef } from "react";
-import { Recipe, Button, Aside } from "../components";
-import "./Generator.scss";
-import { UserContext } from "../UserContext";
+import React, { useContext, useState, useRef } from 'react';
+import { Recipe, Button, Aside } from '../components';
+import './Generator.scss';
+import { UserContext } from '../UserContext';
 
-function Generator({ logIn, logOut, setInput, meals}) {
+function Generator({ logIn, logOut, setInput, meals }) {
   const { login } = useContext(UserContext);
   const recipeRef = useRef(null);
 
-  const scrollTop = () => {
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-  };
+  const scrollTop = () => window.scroll(0,0);
 
   const scrollToDiv = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
@@ -29,29 +26,23 @@ function Generator({ logIn, logOut, setInput, meals}) {
             />
           )}
           {login ? (
-            <Button onClick={logOut} className={"btn__log"} name={"Log out"} />
+            <Button onClick={logOut} className={'btn__log'} name={'Log out'} />
           ) : (
-            <Button onClick={logIn} className={"btn__log"} name={"Log in"} />
+            <Button onClick={logIn} className={'btn__log'} name={'Log in'} />
           )}
         </header>
         <main>
           <Aside meals={meals} />
           {login ? (
             <div className="generate__btns">
-              <Button
-                className={"btn__generate"}
-                name={"Generate from your recepies"}
-              />
-              <Button
-                className={"btn__generate"}
-                name={"Generate recipe from DB"}
-              />
+              <Button className={'btn__generate'} name={'Generate from your recepies'} />
+              <Button className={'btn__generate'} name={'Generate recipe from DB'} />
             </div>
           ) : (
             <Button
               onClick={() => scrollToDiv(recipeRef)}
-              className={"btn__generate"}
-              name={"Generate from DB"}
+              className={'btn__generate'}
+              name={'Generate from DB'}
             />
           )}
         </main>

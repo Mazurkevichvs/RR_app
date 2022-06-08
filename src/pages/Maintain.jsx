@@ -19,7 +19,7 @@ function Maintain({logIn, logOut, meals}) {
           }
         </header>
         <main>
-          <Aside meals={meals} />
+          <Aside meals={meals}/>
           <RecipeList/>
         </main>
     </section>

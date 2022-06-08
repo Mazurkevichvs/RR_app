@@ -4,9 +4,14 @@ import './RecipeList.scss';
 function RecipeList() {
   return (
     <div className='recipe__list'>
-        <div className='first__recipe'>
+        <div className='recipe__item first__recipe'>
             +
         </div>
+        <div className="recipe__item"></div>
+        <div className="recipe__item"></div>
+        <div className="recipe__item"></div>
+        <div className="recipe__item"></div>
+        <div className="recipe__item"></div>
     </div>
   )
 }
