@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.urls import reverse
 
@@ -12,7 +12,7 @@ def image_path(instance, filename):
     return f"images/{filename}"
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(primary_key=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

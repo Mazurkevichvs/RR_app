@@ -26,6 +26,7 @@ class ListApi(APIView):
                 "recipe:recipe-random-private", request=request
             ),
             "Account-login": reverse("account:login", request=request),
+            "Account-logout": reverse("account:logout", request=request),
             "Account-token": reverse("account:token_obtain_pair", request=request),
             "Account-token-refresh": reverse("account:token_refresh", request=request),
             "Account-create": reverse("account:create", request=request),
@@ -45,7 +46,7 @@ class ListApi(APIView):
 
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("api/", ListApi.as_view()),
     path("api/", include(api_urls)),
 ]

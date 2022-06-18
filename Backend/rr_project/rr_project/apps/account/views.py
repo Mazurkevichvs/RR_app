@@ -79,6 +79,25 @@ class LoginView(APIView):
 login_view = LoginView.as_view()
 
 
+class LogoutView(APIView):
+    permission_classes = [
+        IsAuthenticated,
+    ]
+    # Take a look here, change to POST request, some issues with csrf token
+    def get(self, request):
+        try:
+            response = Response()
+            response.delete_cookie(settings.SIMPLE_JWT["AUTH_COOKIE"])
+            response.delete_cookie("csrftoken")
+            response.data = {"result": "User logout successfully"}
+            return response
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+logout_view = LogoutView.as_view()
+
+
 class CreateUserView(CreateAPIView):
     """Create a new user in the system"""
 
@@ -86,6 +105,7 @@ class CreateUserView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         serializer = UserSerializer(data=request.data)
+        response = Response()
         data = {}
         if serializer.is_valid():
             user = serializer.save()
@@ -97,10 +117,22 @@ class CreateUserView(CreateAPIView):
                 password=request.POST.get("password"),
             )
             if new_user is not None and new_user.is_active:
-                login(request, new_user)
+                response.set_cookie(
+                    key=settings.SIMPLE_JWT["AUTH_COOKIE"],
+                    value=data["token"]["access"],
+                    secure=settings.SIMPLE_JWT["AUTH_COOKIE_SECURE"],
+                    httponly=settings.SIMPLE_JWT["AUTH_COOKIE_HTTP_ONLY"],
+                    samesite=settings.SIMPLE_JWT["AUTH_COOKIE_SAMESITE"],
+                    max_age=int(
+                        settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds()
+                    ),
+                )
+                csrf.get_token(request)
+                response.data = {"Success": "User login successfully", "data": data}
+                return response
         else:
             data = serializer.errors
-        return Response(data, status=status.HTTP_201_CREATED)
+            return Response(data)
 
 
 create_user_view = CreateUserView.as_view()
@@ -120,10 +152,12 @@ class ManageUserView(RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         """Delete a user ,setting is_active=False"""
+        response = Response()
         request.user.is_active = False
         request.user.save()
-        content = {"result": "User deleted successfully"}
-        return Response(content, status=204)
+        response.delete_cookie(settings.SIMPLE_JWT["AUTH_COOKIE"])
+        response.data = {"result": "User deleted successfully"}
+        return response
 
 
 manage_user_view = ManageUserView.as_view()
