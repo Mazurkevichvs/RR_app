@@ -1,15 +1,27 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Recipe, Button, Aside } from '../components';
 import './Generator.scss';
 import { UserContext } from '../UserContext';
+import axios from 'axios';
 
 function Generator({ logIn, logOut, setInput, meals }) {
+  const [recipe, setRecipe] = useState(null)
   const { login } = useContext(UserContext);
   const recipeRef = useRef(null);
 
-  const scrollTop = () => window.scroll(0,0);
+  const scrollTop = () => window.scroll(0, 0);
 
-  const scrollToDiv = (ref) => window.scrollTo(0, ref.current.offsetTop);
+  // const scrollToDiv = (ref) => {
+  //   window.scrollTo(0, ref.current.offsetTop);
+  // }
+//  useEffect(() => {
+//   axios.get("http://localhost:8000/api/recipe/random").then((recipe) => setRecipe(recipe.data.results))
+//  }, [])
+  const getRecipe = () => {
+    axios.get("http://localhost:8000/api/recipe/random").then((recipe) => setRecipe(recipe.data.results))
+    recipeRef.current?.scrollIntoView({ behavior: 'smooth' });
+    console.log(recipe);
+  };
 
   return (
     <>
@@ -36,11 +48,11 @@ function Generator({ logIn, logOut, setInput, meals }) {
           {login ? (
             <div className="generate__btns">
               <Button className={'btn__generate'} name={'Generate from your recepies'} />
-              <Button className={'btn__generate'} name={'Generate recipe from DB'} />
+              <Button className={'btn__generate'} name={'Generate recipe from DB'} onClick={() => getRecipe()}/>
             </div>
           ) : (
             <Button
-              onClick={() => scrollToDiv(recipeRef)}
+              onClick={() => getRecipe()}
               className={'btn__generate'}
               name={'Generate from DB'}
             />
@@ -48,7 +60,7 @@ function Generator({ logIn, logOut, setInput, meals }) {
         </main>
       </section>
 
-      {login || <Recipe scrollTop={scrollTop} recipeRef={recipeRef} />}
+      {recipe && <Recipe scrollTop={scrollTop} recipeRef={recipeRef} recipe={recipe}/>}
     </>
   );
 }
