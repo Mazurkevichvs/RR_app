@@ -1,6 +1,6 @@
 from random import choice
 
-from core.models import Recipe
+from core.models import Recipe, Category
 from core.permissions import IsOwnerOrIsAdminUser
 from django.shortcuts import redirect
 from recipe import serializers
@@ -17,6 +17,14 @@ class CategoryCreateAPIView(CreateAPIView):
 
 
 category_create_api_view = CategoryCreateAPIView.as_view()
+
+
+class CategoryListAPIView(ListAPIView):
+    serializer_class = serializers.CategorySerializer
+    queryset = Category.objects.all()
+
+
+category_list_api_view = CategoryListAPIView.as_view()
 
 
 class RecipeListAPIView(ListAPIView):

@@ -21,6 +21,7 @@ class ListApi(APIView):
             "List-recipes": reverse("recipe:recipe-list", request=request),
             "Create-recipe": reverse("recipe:recipe-create", request=request),
             "Create-category": reverse("recipe:category-create", request=request),
+            "List-categories": reverse("recipe:category-list", request=request),
             "Random-recipe": reverse("recipe:recipe-random", request=request),
             "Random-own-recipe": reverse(
                 "recipe:recipe-random-private", request=request
