@@ -36,6 +36,20 @@ class RecipeListAPIView(ListAPIView):
 recipe_list_api_view = RecipeListAPIView.as_view()
 
 
+class RecipePrivateListAPIView(ListAPIView):
+    serializer_class = serializers.RecipeSerializer
+    permission_classes = [IsAuthenticated,]
+    parser_classes = (MultiPartParser, FormParser)
+
+    def get_queryset(self):
+        user = self.request.user
+        recipe_filter = Recipe.objects.filter(user=user)
+        return recipe_filter
+
+
+recipe_private_list_api_view = RecipePrivateListAPIView.as_view()
+
+
 class RecipeDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.RecipeSerializer
     parser_classes = (MultiPartParser, FormParser)

@@ -19,6 +19,7 @@ class ListApi(APIView):
         first_recipe = Recipe.objects.first()
         api_urls = {
             "List-recipes": reverse("recipe:recipe-list", request=request),
+            "List-own-recipes": reverse("recipe:recipe-list-private", request=request),
             "Create-recipe": reverse("recipe:recipe-create", request=request),
             "Create-category": reverse("recipe:category-create", request=request),
             "List-categories": reverse("recipe:category-list", request=request),
