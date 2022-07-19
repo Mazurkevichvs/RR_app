@@ -57,6 +57,7 @@ function Generator({ logIn, logOut, setInput, meals }) {
               name={'Generate from DB'}
             />
           )}
+          
         </main>
       </section>
 
