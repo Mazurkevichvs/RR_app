@@ -44,4 +44,4 @@ USER user
 
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/rr_app/entrypoint.sh"]
+# ENTRYPOINT ["/usr/src/rr_app/entrypoint.sh"]

@@ -1,0 +1,23 @@
+.container {
+    width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+     a{
+      width: 100%;
+      max-width: 520px;
+  }
+}
+
+
+
+.login__input {
+    background-color: #C4C4C4;
+    border: none;
+    border-radius: 20px;
+    padding: 12px;
+    font-size: 36px;
+}
+

@@ -1,0 +1,60 @@
+
+.btn {
+   cursor: pointer; 
+   background-color: #A73737;
+   border: none;
+   font-size: 36px;
+   border-radius: 25px;
+   color: #fff;
+   transition: all .5s ease;
+}
+
+.btn__logs {
+    padding: 70px 0px;
+   width: 100%;
+   max-width: 520px;
+   margin-top: 40px;
+   &:hover {
+    background-color: #9e2323;
+    transform: scale(101%);
+}
+}
+
+.btn__start {
+    padding: 70px 0px;
+   width: 100%;
+   max-width: 520px;
+   &:hover {
+    background-color: #9e2323;
+    transform: scale(101%);
+}
+}
+
+.btn__generate {
+    padding: 50px 100px;
+    max-width: 500px;
+    &:hover {
+        background-color: #9e2323;
+        transform: scale(101%);
+    }
+}
+
+.btn__log {
+    padding: 20px 40px;
+    margin: 0 30px;
+    &:hover {
+        background-color: #9e2323;
+        transform: scale(101%);
+    }
+}
+
+.btn__add__recipe {
+    padding: 20px 40px;
+    background-color: #fff;
+    color:#A73737;
+    font-size: 40px;
+    line-height: 0;
+    &:hover {
+        transform: scale(101%);
+    }
+}

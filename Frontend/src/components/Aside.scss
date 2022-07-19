@@ -1,0 +1,35 @@
+aside {
+    background-color: #A73737;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    ul {
+        padding: 0;
+        margin: 0; 
+    }
+    li {
+        color: #fff;
+        font-size: 48px;
+        list-style: none;
+        padding: 20px 100px 20px 40px;
+        border-radius: 0px 25px 25px 0px;
+        cursor: pointer;
+        &:first-child {
+            margin-top: 60px;
+        }
+        &:last-child {
+            margin-bottom: 20px;
+        }
+    }
+    a {
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+}
+
+.active {
+    background-color: #fff;
+    color: #A73737;
+}

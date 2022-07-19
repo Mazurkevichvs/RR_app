@@ -1,3 +1,63 @@
+- model: admin.logentry
+  pk: 1
+  fields:
+    action_time: 2022-06-18 18:26:20.813106+00:00
+    user: admin@test.com
+    content_type: 7
+    object_id: max@test.com
+    object_repr: max@test.com
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Is active"]}}]'
+- model: admin.logentry
+  pk: 2
+  fields:
+    action_time: 2022-06-18 18:35:06.190947+00:00
+    user: admin@test.com
+    content_type: 7
+    object_id: max@test.com
+    object_repr: max@test.com
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Is active"]}}]'
+- model: admin.logentry
+  pk: 3
+  fields:
+    action_time: 2022-06-18 18:57:07.173799+00:00
+    user: admin@test.com
+    content_type: 7
+    object_id: max@test.com
+    object_repr: max@test.com
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Is active"]}}]'
+- model: admin.logentry
+  pk: 4
+  fields:
+    action_time: 2022-06-18 19:36:34.082384+00:00
+    user: admin@test.com
+    content_type: 7
+    object_id: duhast@test.com
+    object_repr: duhast@test.com
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 5
+  fields:
+    action_time: 2022-06-18 19:37:16.673146+00:00
+    user: admin@test.com
+    content_type: 7
+    object_id: duhast@test.com
+    object_repr: duhast@test.com
+    action_flag: 3
+    change_message: ''
+- model: admin.logentry
+  pk: 6
+  fields:
+    action_time: 2022-06-18 20:00:20.005236+00:00
+    user: admin@test.com
+    content_type: 2
+    object_id: '1'
+    object_repr: admin
+    action_flag: 1
+    change_message: '[{"added": {}}]'
 - model: auth.permission
   pk: 1
   fields:
@@ -214,98 +274,108 @@
     name: Can view Category
     content_type: 9
     codename: view_category
-- model: contenttypes.contenttype
+- model: auth.permission
+  pk: 37
+  fields:
+    name: Can add log entry
+    content_type: 10
+    codename: add_logentry
+- model: auth.permission
+  pk: 38
+  fields:
+    name: Can change log entry
+    content_type: 10
+    codename: change_logentry
+- model: auth.permission
+  pk: 39
+  fields:
+    name: Can delete log entry
+    content_type: 10
+    codename: delete_logentry
+- model: auth.permission
+  pk: 40
+  fields:
+    name: Can view log entry
+    content_type: 10
+    codename: view_logentry
+- model: auth.group
   pk: 1
   fields:
-    app_label: auth
-    model: permission
-- model: contenttypes.contenttype
-  pk: 2
-  fields:
-    app_label: auth
-    model: group
-- model: contenttypes.contenttype
-  pk: 3
-  fields:
-    app_label: contenttypes
-    model: contenttype
-- model: contenttypes.contenttype
-  pk: 4
-  fields:
-    app_label: sessions
-    model: session
-- model: contenttypes.contenttype
-  pk: 5
-  fields:
-    app_label: token_blacklist
-    model: blacklistedtoken
-- model: contenttypes.contenttype
-  pk: 6
-  fields:
-    app_label: token_blacklist
-    model: outstandingtoken
-- model: contenttypes.contenttype
-  pk: 7
-  fields:
-    app_label: core
-    model: user
-- model: contenttypes.contenttype
-  pk: 8
-  fields:
-    app_label: core
-    model: recipe
-- model: contenttypes.contenttype
-  pk: 9
-  fields:
-    app_label: core
-    model: category
-- model: sessions.session
-  pk: shcic6z8zyyuelgtzht2auq5a9f4v7od
-  fields:
-    session_data: .eJxVzMsOgjAQheF36do00zLQ4sqw9xnITC-CCk1oSUyM7y4kLHT9f-e8RU9rGfo1h6UfvTiLiV6XEnKRLk3i9JuZ3CPMu_F3mm9pE3NZRpY7kUfN8pp8eHaH_TsYKA_bOgbQSEoBEDea61obUt60gIrItooZwCqsEB1YF9A0yGCjp8q66HUrPl_YJzvO:1no6XZ:DmiosJF3cxu7Vxd1ole7E6hqt-vZQ4jv49dgPFj6uyc
-    expire_date: 2022-05-23 16:47:21.910024+00:00
-- model: token_blacklist.outstandingtoken
-  pk: 1
-  fields:
-    user: max@test.com
-    jti: 043d5334d647462ebd11f407dc9ba42d
-    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1OTg5MDg0MSwianRpIjoiMDQzZDUzMzRkNjQ3NDYyZWJkMTFmNDA3ZGM5YmE0MmQiLCJ1c2VyX2lkIjoibWF4QHRlc3QuY29tIn0.ObeIQZf_H-EqRssYmLda3dExzzNf0xu4-gOF-Z6B7LA
-    created_at: 2022-05-09 16:47:21.544093+00:00
-    expires_at: 2022-08-07 16:47:21+00:00
-- model: token_blacklist.outstandingtoken
-  pk: 2
-  fields:
-    user: max@test.com
-    jti: 6b62cc3786fc4527a496286b567097a9
-    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1OTg5MDg3MCwianRpIjoiNmI2MmNjMzc4NmZjNDUyN2E0OTYyODZiNTY3MDk3YTkiLCJ1c2VyX2lkIjoibWF4QHRlc3QuY29tIn0.YHstRzHBzJ5_QeyFYKOaUVq5c8AEffH6SkNvo1IJEjg
-    created_at: 2022-05-09 16:47:50.595332+00:00
-    expires_at: 2022-08-07 16:47:50+00:00
-- model: token_blacklist.outstandingtoken
-  pk: 3
-  fields:
-    user: admin@test.com
-    jti: f8d27d0befe54f2fa4c081e083885b01
-    token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY1OTg5MDkzMCwianRpIjoiZjhkMjdkMGJlZmU1NGYyZmE0YzA4MWUwODM4ODViMDEiLCJ1c2VyX2lkIjoiYWRtaW5AdGVzdC5jb20ifQ.QI1srLnC9YsFeKJVszeprpnX_qNxDOaLAOyzd-JaOhA
-    created_at: 2022-05-09 16:48:50.559989+00:00
-    expires_at: 2022-08-07 16:48:50+00:00
+    name: admin
+    permissions:
+    - 37
+    - 38
+    - 39
+    - 40
+    - 5
+    - 6
+    - 7
+    - 8
+    - 1
+    - 2
+    - 3
+    - 4
+    - 9
+    - 10
+    - 11
+    - 12
+    - 33
+    - 34
+    - 35
+    - 36
+    - 29
+    - 30
+    - 31
+    - 32
+    - 25
+    - 26
+    - 27
+    - 28
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 18
+    - 19
+    - 20
+    - 21
+    - 22
+    - 23
+    - 24
 - model: core.user
   pk: admin@test.com
   fields:
     password: pbkdf2_sha256$260000$7Nh67ynW5isXdGB6d90eHF$K7IyL9pF8Pr1eENnQCnvaHdL7TxTaTwxtpYI6QfBr70=
-    last_login: null
+    last_login: 2022-06-18 19:59:25.537776+00:00
     is_admin: false
     is_active: true
     is_staff: true
     is_superuser: true
+    groups: []
+    user_permissions: []
 - model: core.user
-  pk: max@test.com
+  pk: duhast@test.com
   fields:
-    password: pbkdf2_sha256$260000$1X92zGQMzcrNYmyvJbA41x$1zryIHJDnutQFjf2Iwts5pM9hrkVTdGj8E+ichy234U=
-    last_login: 2022-05-09 16:47:21.852194+00:00
+    password: pbkdf2_sha256$260000$VEDxm22KafK2ZDjsrQUWYN$uE7PhylT9vLrs+0rEeyqDoEtCkxi66MA5loWgp100ag=
+    last_login: 2022-06-18 19:37:40.360243+00:00
     is_admin: false
     is_active: true
     is_staff: false
     is_superuser: false
+    groups: []
+    user_permissions: []
+- model: core.user
+  pk: max@test.com
+  fields:
+    password: pbkdf2_sha256$260000$1X92zGQMzcrNYmyvJbA41x$1zryIHJDnutQFjf2Iwts5pM9hrkVTdGj8E+ichy234U=
+    last_login: 2022-05-09 16:47:21+00:00
+    is_admin: false
+    is_active: true
+    is_staff: false
+    is_superuser: false
+    groups: []
+    user_permissions: []
 - model: core.category
   pk: 1
   fields:
@@ -332,6 +402,7 @@
     time_minutes: 30
     slug: teriyaki_chicken
     ingredients: Sauce Teriyaki, Chicken
+    image_url: ''
 - model: core.recipe
   pk: 2
   fields:
@@ -342,3 +413,15 @@
     time_minutes: 15
     slug: steak_rib_eye
     ingredients: Steak
+    image_url: ''
+- model: core.recipe
+  pk: 3
+  fields:
+    user: max@test.com
+    title: no-image
+    category: 1
+    description: no-image
+    time_minutes: 11
+    slug: no image
+    ingredients: no image, no, image
+    image_url: images/no-image.jpg
