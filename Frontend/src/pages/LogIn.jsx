@@ -1,13 +1,22 @@
 import { React, useState, useContext } from "react";
 import Button from "../components/button";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import { setLogin } from '../redux/slices/loginSlice';
 
 function LogIn({logIn, input, setInput}) {
+
+  const login1 = useSelector((state) => state.loginReducer.loginValue)
+  const dispatch = useDispatch()
+  
 
   return (
     <div className="container"> 
       <input
-        onChange={(event) => setInput(event.target.value)}
+        onChange={(event) => {
+          dispatch(setLogin(event.target.value))
+          console.log(login1)
+        }}
         className="login__input"
         type="text"
         placeholder="example@mail.com "

@@ -2,16 +2,13 @@ import React from 'react'
 import Button from '../components/button';
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '../redux/slices/counterSlice'
-
+import { decrement, increment } from '../redux/slices/counterSlice';
 import './Home.scss'
-
-
-
 
 function Home() {
 
   const count = useSelector((state) => state.counter.value)
+  
   const dispatch = useDispatch()
 
   return (
