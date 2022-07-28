@@ -4,6 +4,7 @@ aside {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-self: flex-start;
     
     ul {
         padding: 0;

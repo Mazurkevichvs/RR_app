@@ -1,8 +1,14 @@
+.recipe__wrapper {
+    max-width: 70%;
+    margin: 0 auto;
+}
+
 .recipe__list {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 auto;
-    justify-content: space-around;
+    
+    justify-content: space-between;
+    
 }
 
 .recipe__item {
@@ -13,6 +19,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    &:nth-child(5) {
+        margin-top: 50px;
+    }
+    &:nth-child(6) {
+        margin-top: 50px;
+    }
+    
 }
 
 .first__recipe {  
