@@ -13,7 +13,7 @@ function Recipe({ scrollTop, recipeRef, recipe }) {
       <section className="recipe__top">
         <img
           src={recipe[0].image_url !== null ? recipe[0].image_url : '/no-image.jpg'}
-          alt="image"
+          alt="meal"
         />
         <div onClick={() => scrollTop()} className="arrow">
           <FontAwesomeIcon icon={faArrowUpLong} />

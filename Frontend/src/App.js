@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { Home, LogIn, Generator, Maintain } from './pages';
 import { Routes, Route } from 'react-router-dom';
-import { UserContext } from './UserContext';
+import { useDispatch } from 'react-redux'
+import { setLogin } from './redux/slices/loginSlice';
 import axios from 'axios';
 
 function App() {
-  const [login, setLogin] = useState();
-  const [input, setInput] = useState(null);
-  const [recipe, setRecipe] = useState(null)
+  const [input, setInput] = useState('');
+  const [recipe, setRecipe] = useState(null);
+  const dispatch = useDispatch()
+  
 
   useEffect(() => {
     axios
@@ -22,35 +24,31 @@ function App() {
     { id: 3, name: 'Dinner' },
   ];
 
-  const logIn = () => {
-    if (input != null) {
-      setLogin(input);
-      setInput(null);
-    } else {
-      console.log('Problem');
-    }
+  const logIn = (str) => {
+    console.log(str)
+      dispatch(setLogin(str));  
   };
 
   const logOut = () => {
-    setLogin(null);
+    dispatch(setLogin(null));
+    setInput(null);
   };
 
   return (
-    <UserContext.Provider value={{ login, setLogin }}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/LogIn" element={<LogIn input={input} setInput={setInput} logIn={logIn} />} />
+        <Route path="/LogIn" element={<LogIn logIn={logIn} input={input} setInput={setInput} />} />
         <Route
           path="/Generator"
           element={
             <Generator
-              input={input}
-              setInput={setInput}
               logIn={logIn}
               logOut={logOut}
               meals={meals}
               recipe={recipe}
               setRecipe={setRecipe}
+              input={input}
+              setInput={setInput}
             />
           }
         />
@@ -58,16 +56,15 @@ function App() {
           path="/Maintain"
           element={
             <Maintain
-              input={input}
-              setInput={setInput}
               logIn={logIn}
               logOut={logOut}
               meals={meals}
+              input={input}
+              setInput={setInput}
             />
           }
         />
       </Routes>
-    </UserContext.Provider>
   );
 }
 

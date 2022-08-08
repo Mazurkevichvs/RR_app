@@ -1,11 +1,12 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Recipe, Button, Aside } from '../components';
+import { useSelector } from 'react-redux'
 import './Generator.scss';
-import { UserContext } from '../UserContext';
 
 
-function Generator({ logIn, logOut, setInput, meals, recipe, setRecipe }) {
-  const { login } = useContext(UserContext);
+function Generator({ logIn, logOut, meals, recipe, input, setInput }) {
+  const loginData = useSelector((state) => state.loginReducer.loginValue)
+
   const recipeRef = useRef(null);
 
   const scrollTop = () => window.scroll(0, 0);
@@ -19,8 +20,8 @@ function Generator({ logIn, logOut, setInput, meals, recipe, setRecipe }) {
     <>
       <section className="wrapper">
         <header>
-          {login ? (
-            <p className="user__title">User: {login}</p>
+          {loginData ? (
+            <p className="user__title">User: {loginData}</p>
           ) : (
             <input
               onChange={(event) => setInput(event.target.value)}
@@ -29,15 +30,15 @@ function Generator({ logIn, logOut, setInput, meals, recipe, setRecipe }) {
               placeholder="example@mail.com "
             />
           )}
-          {login ? (
+          {loginData ? (
             <Button onClick={logOut} className={'btn__log'} name={'Log out'} />
           ) : (
-            <Button onClick={logIn} className={'btn__log'} name={'Log in'} />
+            <Button onClick={() => logIn(input)} className={'btn__log'} name={'Log in'} />
           )}
         </header>
         <main>
           <Aside meals={meals} />
-          {login ? (
+          {loginData ? (
             <div className="generate__btns">
               <Button className={'btn__generate'} name={'Generate from your recepies'} />
               <Button className={'btn__generate'} name={'Generate recipe from DB'} onClick={() => getRandomRecipe()}/>
