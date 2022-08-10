@@ -3,7 +3,8 @@ import './RecipeList.scss';
 
 function RecipeList() {
   return (
-    <div className='recipe__list'>
+    <div className="recipe__wrapper">
+      <div className='recipe__list'>
         <div className='recipe__item first__recipe'>
             +
         </div>
@@ -12,7 +13,9 @@ function RecipeList() {
         <div className="recipe__item"></div>
         <div className="recipe__item"></div>
         <div className="recipe__item"></div>
+      </div>
     </div>
+    
   )
 }
 

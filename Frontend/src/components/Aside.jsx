@@ -1,11 +1,11 @@
-import React, {useState, useContext} from 'react';
-import { UserContext } from '../UserContext';
+import React, {useState} from 'react';
 import './Aside.scss';
 import { Link } from 'react-router-dom';
 import Button from './button';
+import { useSelector} from 'react-redux'
 
 function Aside({meals}) {
-  const { login } = useContext(UserContext);
+  const loginData = useSelector((state) => state.loginReducer.loginValue)
   const [isActive, setActive] = useState(1);  
 
   const listItem = meals.map( (meal) => 
@@ -23,7 +23,7 @@ function Aside({meals}) {
         <ul>
             {listItem}
         </ul>
-        {login && <Link to="/Maintain"><Button className={"btn__add__recipe"} name={"+"}/></Link>}
+        {loginData && <Link to="/Maintain"><Button className={"btn__add__recipe"} name={"+"}/></Link>}
     </aside>
   )
 }

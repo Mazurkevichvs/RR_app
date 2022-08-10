@@ -1,24 +1,17 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Recipe, Button, Aside } from '../components';
+import { useSelector } from 'react-redux'
 import './Generator.scss';
-import { UserContext } from '../UserContext';
-import axios from 'axios';
 
-function Generator({ logIn, logOut, setInput, meals }) {
-  const [recipe, setRecipe] = useState(null)
-  const { login } = useContext(UserContext);
+
+function Generator({ logIn, logOut, meals, recipe, input, setInput }) {
+  const loginData = useSelector((state) => state.loginReducer.loginValue)
+
   const recipeRef = useRef(null);
 
   const scrollTop = () => window.scroll(0, 0);
 
-  // const scrollToDiv = (ref) => {
-  //   window.scrollTo(0, ref.current.offsetTop);
-  // }
-//  useEffect(() => {
-//   axios.get("http://localhost:8000/api/recipe/random").then((recipe) => setRecipe(recipe.data.results))
-//  }, [])
-  const getRecipe = () => {
-    axios.get("http://localhost:8000/api/recipe/random").then((recipe) => setRecipe(recipe.data.results))
+  const getRandomRecipe = () => {  
     recipeRef.current?.scrollIntoView({ behavior: 'smooth' });
     console.log(recipe);
   };
@@ -27,8 +20,8 @@ function Generator({ logIn, logOut, setInput, meals }) {
     <>
       <section className="wrapper">
         <header>
-          {login ? (
-            <p className="user__title">User: {login}</p>
+          {loginData ? (
+            <p className="user__title">User: {loginData}</p>
           ) : (
             <input
               onChange={(event) => setInput(event.target.value)}
@@ -37,26 +30,27 @@ function Generator({ logIn, logOut, setInput, meals }) {
               placeholder="example@mail.com "
             />
           )}
-          {login ? (
+          {loginData ? (
             <Button onClick={logOut} className={'btn__log'} name={'Log out'} />
           ) : (
-            <Button onClick={logIn} className={'btn__log'} name={'Log in'} />
+            <Button onClick={() => logIn(input)} className={'btn__log'} name={'Log in'} />
           )}
         </header>
         <main>
           <Aside meals={meals} />
-          {login ? (
+          {loginData ? (
             <div className="generate__btns">
               <Button className={'btn__generate'} name={'Generate from your recepies'} />
-              <Button className={'btn__generate'} name={'Generate recipe from DB'} onClick={() => getRecipe()}/>
+              <Button className={'btn__generate'} name={'Generate recipe from DB'} onClick={() => getRandomRecipe()}/>
             </div>
           ) : (
             <Button
-              onClick={() => getRecipe()}
+              onClick={() => getRandomRecipe()}
               className={'btn__generate'}
               name={'Generate from DB'}
             />
           )}
+          
         </main>
       </section>
 
