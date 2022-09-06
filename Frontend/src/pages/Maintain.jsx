@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Aside, RecipeList } from '../components';
 import { useSelector } from 'react-redux';
 
-function Maintain({ logIn, logOut, meals, input, setInput }) {
+function Maintain({ logIn, logOut, input, setInput }) {
   const loginData = useSelector((state) => state.loginReducer.loginValue);
 
   return (
@@ -27,7 +27,7 @@ function Maintain({ logIn, logOut, meals, input, setInput }) {
         )}
       </header>
       <main>
-        <Aside meals={meals} />
+        <Aside/>
         <RecipeList />
       </main>
     </section>

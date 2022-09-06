@@ -14,6 +14,14 @@ function LogIn({logIn, input, setInput}) {
         type="text"
         placeholder="example@mail.com "
       />
+      <input
+        onChange={(event) => {
+          setInput(event.target.value)
+        }}
+        className="login__input"
+        type="text"
+        placeholder="password"
+      />
       {input ? (
         <Link to="/Generator">
           <Button

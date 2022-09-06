@@ -6,8 +6,6 @@ import './Recipe.scss';
 
 function Recipe({ scrollTop, recipeRef, recipe }) {
   const ingredients = recipe[0].ingredients.split(",");
-  console.log("recipe", recipe);
-  console.log(ingredients);
   return (
     <section className="recipe__wrapper" ref={recipeRef}>
       <section className="recipe__top">

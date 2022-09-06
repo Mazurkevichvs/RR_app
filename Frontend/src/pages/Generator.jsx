@@ -1,17 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Recipe, Button, Aside } from '../components';
 import { useSelector } from 'react-redux'
 import './Generator.scss';
+import axios from 'axios';
 
 
-function Generator({ logIn, logOut, meals, recipe, input, setInput }) {
-  const loginData = useSelector((state) => state.loginReducer.loginValue)
 
+function Generator({ logIn, logOut, input, setInput }) {
+  const loginData = useSelector((state) => state.loginSlice.loginValue)
+  const [recipe, setRecipe] = useState(null);
   const recipeRef = useRef(null);
 
   const scrollTop = () => window.scroll(0, 0);
 
-  const getRandomRecipe = () => {  
+  const getRandomRecipe = async () => {  
+    await axios
+      .get('http://localhost:8000/api/recipe/random')
+      .then((recipe) => setRecipe(recipe.data.results));
     recipeRef.current?.scrollIntoView({ behavior: 'smooth' });
     console.log(recipe);
   };
@@ -37,7 +42,7 @@ function Generator({ logIn, logOut, meals, recipe, input, setInput }) {
           )}
         </header>
         <main>
-          <Aside meals={meals} />
+          <Aside/>
           {loginData ? (
             <div className="generate__btns">
               <Button className={'btn__generate'} name={'Generate from your recepies'} />
