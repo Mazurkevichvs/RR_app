@@ -1,40 +1,53 @@
-import { React } from "react";
+import { React, useState } from "react";
 import Button from "../components/button";
 import { Link } from "react-router-dom";
+import {useDispatch} from 'react-redux';
+import {setLogin, setPassword} from '../redux/slices/loginSlice';
 
-function LogIn({logIn, input, setInput}) {
+function LogIn() {
+
+  const dispatch = useDispatch();
+
+  const [loginInput, setLoginInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+
+  const logIn = (loginInput, passwordInput) => {
+    dispatch(setLogin(loginInput));  
+    dispatch(setPassword(passwordInput));  
+};
   
   return (
     <div className="container"> 
       <input
         onChange={(event) => {
-          setInput(event.target.value)
+          setLoginInput(event.target.value);
+          console.log(loginInput);
         }}
         className="login__input"
         type="text"
-        placeholder="example@mail.com "
+        placeholder="login"
       />
       <input
         onChange={(event) => {
-          setInput(event.target.value)
+          setPasswordInput(event.target.value);
+          console.log(passwordInput);
         }}
         className="login__input"
         type="text"
         placeholder="password"
       />
-      {input ? (
+      {loginInput && passwordInput ? (
         <Link to="/Generator">
           <Button
-            onClick={() => logIn(input)}
+            onClick={() => logIn(loginInput, passwordInput)}
             className={"btn__logs"}
-            name={"log-in with Email"}
+            name={"Log in"}
           />
         </Link>
       ) : (
         <Button
-          onClick={() => logIn(input)}
-          className={"btn__logs"}
-          name={"log-in with Email"}
+          className={"btn__logs btn__disabled"}
+          name={"Log in"}
         />
       )}
       <Link to="/Generator">

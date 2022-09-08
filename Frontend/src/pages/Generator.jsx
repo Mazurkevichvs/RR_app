@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { Recipe, Button, Aside } from '../components';
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
 import './Generator.scss';
 import axios from 'axios';
 
 
 
-function Generator({ logIn, logOut, input, setInput }) {
-  const loginData = useSelector((state) => state.loginSlice.loginValue)
+function Generator({ logOut}) {
+  const {loginValue, passwordValue} = useSelector((state) => state.loginSlice)
   const [recipe, setRecipe] = useState(null);
   const recipeRef = useRef(null);
 
@@ -25,37 +26,21 @@ function Generator({ logIn, logOut, input, setInput }) {
     <>
       <section className="wrapper">
         <header>
-          {loginData ? (
-            <p className="user__title">User: {loginData}</p>
-          ) : (
-            <input
-              onChange={(event) => setInput(event.target.value)}
-              className="login__input"
-              type="text"
-              placeholder="example@mail.com "
-            />
-          )}
-          {loginData ? (
+          {loginValue &&
+            <p className="user__title">User: {loginValue}</p>
+          }
+          {loginValue ? (
             <Button onClick={logOut} className={'btn__log'} name={'Log out'} />
           ) : (
-            <Button onClick={() => logIn(input)} className={'btn__log'} name={'Log in'} />
+            <Link to="/LogIn"><Button className={'btn__log'} name={'Log in'} /></Link>
           )}
         </header>
         <main>
           <Aside/>
-          {loginData ? (
             <div className="generate__btns">
-              <Button className={'btn__generate'} name={'Generate from your recepies'} />
+              {loginValue && <Button className={'btn__generate'} name={'Generate from your recepies'} />}
               <Button className={'btn__generate'} name={'Generate recipe from DB'} onClick={() => getRandomRecipe()}/>
-            </div>
-          ) : (
-            <Button
-              onClick={() => getRandomRecipe()}
-              className={'btn__generate'}
-              name={'Generate from DB'}
-            />
-          )}
-          
+            </div>          
         </main>
       </section>
 

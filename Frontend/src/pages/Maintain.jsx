@@ -1,29 +1,21 @@
 import React from 'react';
 import { Button, Aside, RecipeList } from '../components';
 import { useSelector } from 'react-redux';
+import {Link} from 'react-router-dom';
 
-function Maintain({ logIn, logOut, input, setInput }) {
+function Maintain({logOut}) {
   const loginData = useSelector((state) => state.loginReducer.loginValue);
 
   return (
     <section className="wrapper">
       <header>
-        {loginData ? (
-          <p className="user__title">User: {loginData}</p>
-        ) : (
-          <input
-            onChange={(event) => {
-              setInput(event.target.value);
-            }}
-            className="login__input"
-            type="text"
-            placeholder="example@mail.com "
-          />
-        )}
+        {loginData && 
+          <p className="user__title">User: {loginData}</p>  
+        }
         {loginData ? (
           <Button onClick={logOut} className={'btn__log'} name={'Log out'} />
         ) : (
-          <Button onClick={() => logIn(input)} className={'btn__log'} name={'Log in'} />
+          <Link to="/LogIn"><Button className={'btn__log'} name={'Log in'} /></Link>
         )}
       </header>
       <main>

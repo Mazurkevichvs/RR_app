@@ -17,7 +17,14 @@
    &:hover {
     background-color: #9e2323;
     transform: scale(101%);
+    }
 }
+
+.btn__disabled {
+    pointer-events: none;
+    opacity: 0.65;
+    cursor:not-allowed;
+
 }
 
 .btn__start {
