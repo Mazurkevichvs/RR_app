@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { Recipe, Button, Aside } from '../components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {logOut} from '../redux/slices/loginSlice';
 import { Link } from "react-router-dom";
 import './Generator.scss';
 import axios from 'axios';
 
 
 
-function Generator({ logOut}) {
-  const {loginValue, passwordValue} = useSelector((state) => state.loginSlice)
+function Generator() {
+  const dispatch = useDispatch();
+  const {loginValue, passwordValue} = useSelector((state) => state.loginSlice);
   const [recipe, setRecipe] = useState(null);
   const recipeRef = useRef(null);
 
@@ -30,7 +32,7 @@ function Generator({ logOut}) {
             <p className="user__title">User: {loginValue}</p>
           }
           {loginValue ? (
-            <Button onClick={logOut} className={'btn__log'} name={'Log out'} />
+            <Button onClick={() => dispatch(logOut())} className={'btn__log'} name={'Log out'} />
           ) : (
             <Link to="/LogIn"><Button className={'btn__log'} name={'Log in'} /></Link>
           )}

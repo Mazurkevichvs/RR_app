@@ -21,7 +21,7 @@ function LogIn() {
       <input
         onChange={(event) => {
           setLoginInput(event.target.value);
-          console.log(loginInput);
+          
         }}
         className="login__input"
         type="text"
@@ -30,7 +30,7 @@ function LogIn() {
       <input
         onChange={(event) => {
           setPasswordInput(event.target.value);
-          console.log(passwordInput);
+          
         }}
         className="login__input"
         type="text"

@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.scss';
 import { Home, LogIn, Generator, Maintain } from './pages';
 import { Routes, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
-import { setLogin, setPassword } from './redux/slices/loginSlice';
 
 function App() {
   
-  const dispatch = useDispatch()
-  
 // Change input into input component
-// Add password to Redux
-// logIn, logOut func to Redux
+// logIn func to Redux
+// Use backend for reg/auth  
 
-  
-
-  
-
-  const logOut = () => {
-    dispatch(setLogin(null));
-    dispatch(setPassword(null));
-  };
 
   return (
       <Routes>
@@ -29,17 +17,13 @@ function App() {
         <Route
           path="/Generator"
           element={
-            <Generator
-              logOut={logOut}
-            />
+            <Generator/>
           }
         />
         <Route
           path="/Maintain"
           element={
-            <Maintain             
-              logOut={logOut}
-            />
+            <Maintain/>
           }
         />
       </Routes>
