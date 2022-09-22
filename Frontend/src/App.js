@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.scss';
-import { Home, LogIn, Generator, Maintain } from './pages';
+import { Home, LogIn, Generator, Maintain, Registration } from './pages';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
   
-// Change input into input component
+
 // logIn func to Redux
 // Use backend for reg/auth  
 
@@ -26,6 +26,7 @@ function App() {
             <Maintain/>
           }
         />
+        <Route path="/Registration" element={<Registration/>} />
       </Routes>
   );
 }

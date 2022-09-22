@@ -19,8 +19,8 @@ function Aside() {
       .get('http://localhost:8000/api/recipe/list_category')
       .then((res) => 
         dispatch(setCategory(res.data.results))
-        
       )
+      .catch(error => console.log(error))
   }, [])
 
   const categoryItem = categoryList.map( (category, index) => 

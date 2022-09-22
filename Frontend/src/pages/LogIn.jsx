@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import Button from "../components/button";
+import {Input, Button} from '../components';
 import { Link } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import {setLogin, setPassword} from '../redux/slices/loginSlice';
@@ -18,24 +18,9 @@ function LogIn() {
   
   return (
     <div className="container"> 
-      <input
-        onChange={(event) => {
-          setLoginInput(event.target.value);
-          
-        }}
-        className="login__input"
-        type="text"
-        placeholder="login"
-      />
-      <input
-        onChange={(event) => {
-          setPasswordInput(event.target.value);
-          
-        }}
-        className="login__input"
-        type="text"
-        placeholder="password"
-      />
+      <Input placeholder = 'login' setInputValue={setLoginInput}/>
+      <Input placeholder = 'password' setInputValue={setPasswordInput}/>
+      <p>Don't have an account? <Link to="/Registration">Register now!</Link></p>
       {loginInput && passwordInput ? (
         <Link to="/Generator">
           <Button
