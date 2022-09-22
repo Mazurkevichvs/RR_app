@@ -17,7 +17,7 @@ export const loginSlice = createSlice({
       },
       logOut: (state) => {
         state.loginValue = null
-        state.passwordValue = null
+        state.passwordValue = null 
       },
     },
   })

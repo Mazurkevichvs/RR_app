@@ -24,6 +24,14 @@ function Generator() {
     console.log(recipe);
   };
 
+  const HandleLogOut = async () => {
+    await axios.get('http://localhost:8000/api/account/logout/')
+    .then(res => console.log("RESPONSE", res))
+    .catch(err => console.log("ERROR",err))
+    dispatch(logOut())
+
+  }
+
   return (
     <>
       <section className="wrapper">
@@ -32,7 +40,7 @@ function Generator() {
             <p className="user__title">User: {loginValue}</p>
           }
           {loginValue ? (
-            <Button onClick={() => dispatch(logOut())} className={'btn__log'} name={'Log out'} />
+            <Button onClick={() => HandleLogOut()} className={'btn__log'} name={'Log out'} />
           ) : (
             <Link to="/LogIn"><Button className={'btn__log'} name={'Log in'} /></Link>
           )}

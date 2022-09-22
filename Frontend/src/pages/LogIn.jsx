@@ -3,6 +3,7 @@ import {Input, Button} from '../components';
 import { Link } from "react-router-dom";
 import {useDispatch} from 'react-redux';
 import {setLogin, setPassword} from '../redux/slices/loginSlice';
+import axios from "axios";
 
 function LogIn() {
 
@@ -11,9 +12,21 @@ function LogIn() {
   const [loginInput, setLoginInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  const logIn = (loginInput, passwordInput) => {
-    dispatch(setLogin(loginInput));  
-    dispatch(setPassword(passwordInput));  
+  const logIn = async (loginInput, passwordInput) => {
+    const user = {
+      username: loginInput,
+      password: passwordInput
+    }
+    
+    await axios.post('http://localhost:8000/api/account/login/', user)
+    .then(res => {
+      dispatch(setLogin(loginInput));  
+    dispatch(setPassword(passwordInput));
+    console.log(res)
+    })
+    .catch(err => console.log("ERROR",err))
+
+    
 };
   
   return (
