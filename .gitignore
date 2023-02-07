@@ -79,6 +79,8 @@ local_settings.py
 db.sqlite3
 migrations/
 media/
+migrations/
+media/
 
 # Sphinx documentation
 docs/_build/
@@ -87,6 +89,7 @@ docs/_build/
 target/
 
 # Environments
+.env.dev
 .env.dev
 .env
 .venv
