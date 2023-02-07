@@ -9,7 +9,6 @@ function LogIn() {
   const dispatch = useDispatch();
   const [loginInput, setLoginInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
-  const [isLogged, setIsLogged] = useState(false);
   const navigate = useNavigate();
 
   const logIn = async (loginInput, passwordInput) => {
@@ -22,7 +21,6 @@ function LogIn() {
       .then((res) => {
         dispatch(setLogin(loginInput));
         dispatch(setPassword(passwordInput));
-        console.log(res);
         navigate('/Generator');
       })
       .catch((err) => console.log('ERROR', err));
