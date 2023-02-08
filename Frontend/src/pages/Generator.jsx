@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Recipe, Button, Aside } from '../components';
+import { Recipe, Button, Aside, Header } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
-import {logOut} from '../redux/slices/loginSlice';
-import { Link } from "react-router-dom";
 import './Generator.scss';
 import axios from 'axios';
 
@@ -10,10 +8,9 @@ import axios from 'axios';
 
 function Generator() {
   const dispatch = useDispatch();
-  const {loginValue, passwordValue} = useSelector((state) => state.loginSlice);
+  const {loginValue, isLogged} = useSelector((state) => state.loginSlice);
   const [recipe, setRecipe] = useState(null);
   const recipeRef = useRef(null);
-
   const scrollTop = () => window.scroll(0, 0);
 
   const getRandomRecipe = async () => {  
@@ -21,30 +18,12 @@ function Generator() {
       .get('http://localhost:8000/api/recipe/random')
       .then((recipe) => setRecipe(recipe.data.results));
     recipeRef.current?.scrollIntoView({ behavior: 'smooth' });
-    console.log(recipe);
   };
-
-  const HandleLogOut = async () => {
-    await axios.get('http://localhost:8000/api/account/logout/')
-    .then(res => console.log("RESPONSE", res))
-    .catch(err => console.log("ERROR",err))
-    dispatch(logOut())
-
-  }
 
   return (
     <>
       <section className="wrapper">
-        <header>
-          {loginValue &&
-            <p className="user__title">User: {loginValue}</p>
-          }
-          {loginValue ? (
-            <Button onClick={() => HandleLogOut()} className={'btn__log'} name={'Log out'} />
-          ) : (
-            <Link to="/LogIn"><Button className={'btn__log'} name={'Log in'} /></Link>
-          )}
-        </header>
+        <Header/>
         <main>
           <Aside/>
             <div className="generate__btns">

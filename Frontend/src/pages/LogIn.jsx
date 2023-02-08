@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import { Input, Button } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setLogin, setPassword } from '../redux/slices/loginSlice';
+import { setLogin, setPassword, setIsLogged } from '../redux/slices/loginSlice';
 import axios from 'axios';
 
 function LogIn() {
@@ -21,7 +21,9 @@ function LogIn() {
       .then((res) => {
         dispatch(setLogin(loginInput));
         dispatch(setPassword(passwordInput));
+        dispatch(setIsLogged(true));
         navigate('/Generator');
+        console.log(res)
       })
       .catch((err) => console.log('ERROR', err));
   };

@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const initialState = {
     loginValue: null,
     passwordValue: null,
+    isLogged: false
 }
 
 export const loginSlice = createSlice({
@@ -17,11 +18,15 @@ export const loginSlice = createSlice({
       },
       logOut: (state) => {
         state.loginValue = null
-        state.passwordValue = null 
+        state.passwordValue = null
+        state.isLogged = false
       },
+      setIsLogged: (state) => {
+        state.isLogged = true
+      }
     },
   })
   
-  export const { setLogin, setPassword, logOut } = loginSlice.actions
+  export const { setLogin, setPassword, logOut, setIsLogged } = loginSlice.actions
   
   export default loginSlice.reducer

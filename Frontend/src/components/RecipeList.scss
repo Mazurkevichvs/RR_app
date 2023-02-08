@@ -1,16 +1,15 @@
 .recipe__wrapper {
-    max-width: 70%;
+    width: 100%;
     margin: 0 auto;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .recipe__list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    
+    justify-content: space-between;   
 }
-
-
 
 .first__recipe {  
     cursor: pointer;
