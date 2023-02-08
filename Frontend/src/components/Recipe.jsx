@@ -1,11 +1,12 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpLong } from '@fortawesome/free-solid-svg-icons';
 import './Recipe.scss';
 
 function Recipe({ scrollTop, recipeRef, recipe }) {
   const ingredients = recipe[0].ingredients.split(",");
+  
+
   return (
     <section className="recipe__container" ref={recipeRef}>
       <section className="recipe__top">

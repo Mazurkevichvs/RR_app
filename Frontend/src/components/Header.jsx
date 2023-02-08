@@ -1,24 +1,30 @@
-import React from 'react'
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button } from '../components'
-import axios from 'axios'
-import {logOut} from '../redux/slices/loginSlice'
-import { Link, useNavigate } from "react-router-dom"
-import './Header.scss'
+import { Button } from '../components';
+import axios from 'axios';
+import { logOut } from '../redux/slices/loginSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import './Header.scss';
 
 const Header = () => {
-    const {loginValue, isLogged} = useSelector((state) => state.loginSlice);
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const HandleLogOut = async () => {
-        await axios.get('http://localhost:8000/api/account/logout/')
-        .then(res => {
-            dispatch(logOut())
-            navigate('/logIn')
-        })
-        .catch(err => console.log("ERROR",err))
-        
-      }
+  const { loginValue, isLogged, token } = useSelector((state) => state.loginSlice);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const HandleLogOut = async () => {
+    await axios
+      .get('http://localhost:8000/api/account/logout/', {
+        headers: {
+          'Authorization':
+            `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch(logOut());
+        navigate('/logIn');
+        console.log(res)
+      })
+      .catch((err) => console.log('ERROR', err));
+  };
 
   return (
     <header>
