@@ -1,14 +1,6 @@
 .wrapper {
     height: 100vh;    
 }
-
-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-top: 20px;
-}
-
 main {
     display: flex;
     justify-content: center;
@@ -17,7 +9,6 @@ main {
     button {
         margin: 0 auto;
     }
-    
 }
 
 .user__title {

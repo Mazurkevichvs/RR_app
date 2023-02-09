@@ -1,17 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { Button, Aside, RecipeList } from '../components';
-import { useSelector, useDispatch } from 'react-redux';
-import {logOut} from '../redux/slices/loginSlice';
-import {Link} from 'react-router-dom';
+import { Aside, RecipeList, Header } from '../components';
 import axios from 'axios';
 
 function Maintain() {
-  const dispatch = useDispatch();
-  const loginValue = useSelector((state) => state.loginSlice.loginValue);
   const [recipes, setRecipes] = useState([]);
 
-
-  useEffect( () => {
+  useEffect(() => {
      axios
       .get('http://localhost:8000/api/recipe/list/')
       .then((res) => setRecipes(res.data.results));
@@ -19,10 +13,7 @@ function Maintain() {
 
   return (
     <section className="wrapper">
-      <header>
-          <p className="user__title">User: {loginValue}</p>  
-          <Link to="/Generator"><Button onClick={() => dispatch(logOut())} className={'btn__log'} name={'Log out'} /></Link> 
-      </header>
+      <Header/>
       <main>
         <Aside/>
         <RecipeList recipes={recipes}/>

@@ -5,9 +5,22 @@
   flex-direction: column; 
   justify-content: center;
   align-items: center;
-     a{
+     a {
       width: 100%;
       max-width: 520px;
+    } 
+    
+}
+
+.password__input {
+  position: relative;
+  svg {
+    width: 35px;
+    height: 35px;
+    right:15px;
+    top: 20px;
+    position: absolute;
+    cursor: pointer;
   }
 }
 
