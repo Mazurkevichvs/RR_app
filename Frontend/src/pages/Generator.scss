@@ -20,8 +20,11 @@ main {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    button:last-child {
-        margin-top: 40px;
+    button {
+        margin-bottom: 40px;
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 

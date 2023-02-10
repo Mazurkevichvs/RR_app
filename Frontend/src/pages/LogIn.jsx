@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Input, Button } from '../components';
+import { Input, Button, Error } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,10 +12,12 @@ function LogIn() {
   const [loginInput, setLoginInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [isVisible, setIsVisible] = useState(false)
+  const [error, setError] = useState(null)
   const navigate = useNavigate();
   const togglePasswordVisibility = () => {
     setIsVisible(prev => !prev)
   }
+
 
   const logIn = async (loginInput, passwordInput) => {
     const user = {
@@ -28,10 +30,10 @@ function LogIn() {
         const token = res.data.data.access
         console.log(res)
         dispatch(setLogin({loginInput, passwordInput, token}));
-        dispatch(setIsLogged(true));
+        localStorage.setItem('token', token)
         navigate('/Generator');
       })
-      .catch((err) => console.log('ERROR', err));
+      .catch((err) => setError(err.response.data.Invalid));
   };
 
   return (
@@ -41,6 +43,7 @@ function LogIn() {
       <Input placeholder="password" setInputValue={setPasswordInput} type={isVisible ? 'text' : 'password'}/>
       <FontAwesomeIcon icon={faEye} onClick={togglePasswordVisibility}/>
       </div>
+      {error && <Error errorMessage={error}/>}
       <p>
         Don't have an account? <Link to="/Registration">Register now!</Link>
       </p>

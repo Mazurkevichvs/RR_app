@@ -1,5 +1,5 @@
 .container {
-    width: 100vw;
+  width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column; 
@@ -10,6 +10,12 @@
       max-width: 520px;
     } 
     
+}
+
+.app__title {
+  font-size: 80px; 
+  font-weight: normal;
+  margin-bottom: 100px;
 }
 
 .password__input {

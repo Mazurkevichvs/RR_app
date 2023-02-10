@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import { Home, LogIn, Generator, Maintain, Registration } from './pages';
 import { Routes, Route } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setIsLogged } from './redux/slices/loginSlice'; 
+
 
 function App() {
+const dispatch = useDispatch()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if(token) {
+      axios.get('http://localhost:8000/api/account/me/',{
+        headers: {
+          'Authorization':
+            `Bearer ${token}`,
+        }})
+        .then((res) => {
+          const login = res.data.email
+          dispatch(setIsLogged({login, token}))
+        })
+        .catch((err) => console.log('Error', err))
+    }
+    
+  }, [])
   
 
-// logIn func to Redux
-// Use backend for reg/auth  
+// Add recipe feature
+// On reload to /Generator path
 
 
   return (
