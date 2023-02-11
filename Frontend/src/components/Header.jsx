@@ -28,6 +28,10 @@ const Header = () => {
 
   return (
     <header>
+      <h2 className='header__title'>
+        RR <br />
+        APP
+      </h2>
       {isLogged && <p className="user__title">User: {loginValue}</p>}
       {isLogged ? (
         <Button onClick={() => HandleLogOut()} className={'btn__log'} name={'Log out'} />

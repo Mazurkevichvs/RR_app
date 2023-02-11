@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { Recipe, Button, Aside, Header } from '../components';
+import React, { useRef } from 'react';
+import { Recipe, Button, Aside, Header, Error} from '../components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRecipe } from '../redux/slices/recipeSlice';
 import './Generator.scss';
 import axios from 'axios';
+
 
 function Generator() {
   const dispatch = useDispatch();
@@ -41,11 +42,11 @@ function Generator() {
             <div className="generate__btns">
               {isLogged && <Button className={'btn__generate'} name={'Generate from your recepies'} onClick={() => getRandomOwnRecipe()}/>}
               <Button className={'btn__generate'} name={'Generate recipe from DB'} onClick={() => getRandomRecipe()}/>
+              {recipe?.length === 0 && <Error errorMessage={`You don't have own recipes yet`}/>} 
             </div>          
         </main>
       </section>
-
-      {recipe && <Recipe scrollTop={scrollTop} recipeRef={recipeRef} recipe={recipe}/>}
+      {recipe?.length > 0 && <Recipe scrollTop={scrollTop} recipeRef={recipeRef} recipe={recipe}/>}
     </>
   );
 }
