@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { setLogin, setIsLogged } from '../redux/slices/loginSlice';
+import { setLogin } from '../redux/slices/loginSlice';
 import axios from 'axios';
 
 function LogIn() {

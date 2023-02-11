@@ -24,13 +24,11 @@ const dispatch = useDispatch()
         })
         .catch((err) => console.log('Error', err))
     }
-    
   }, [])
   
 
 // Add recipe feature
 // On reload to /Generator path
-
 
   return (
       <Routes>

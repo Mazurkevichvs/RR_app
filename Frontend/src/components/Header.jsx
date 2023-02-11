@@ -20,8 +20,8 @@ const Header = () => {
       })
       .then((res) => {
         dispatch(logOut());
+        localStorage.removeItem('token')
         navigate('/logIn');
-        console.log(res)
       })
       .catch((err) => console.log('ERROR', err));
   };
