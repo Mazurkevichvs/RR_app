@@ -117,8 +117,8 @@ class CreateUserView(CreateAPIView):
                 # TODO : See for better solution for authentication issue...
                 # email=request.POST.get("email"),
                 # password=request.POST.get("password"),
-                email=data_request.POST.get("email"),
-                password=data_request.POST.get("password"),
+                email=data_request.get("email"),
+                password=data_request.get("password"),
             )
             if new_user is not None and new_user.is_active:
                 response.set_cookie(
@@ -134,7 +134,7 @@ class CreateUserView(CreateAPIView):
                 csrf.get_token(request)
                 response.data = {"Success": "User login successfully", "data": data}
                 return response
-        return Response(serializer.errorsta, status=400)
+        return Response(serializer.errors, status=400)
 
 
 create_user_view = CreateUserView.as_view()
