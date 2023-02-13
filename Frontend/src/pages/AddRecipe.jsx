@@ -8,19 +8,31 @@ const AddRecipe = () => {
         <Header/>
         <main>
             <Aside/>
-            <div className="container">
-                <h3 className='add__recipe__title'>Title</h3>
-                <Input/>
-                <h3 className='add__recipe__title'>Description</h3>
-                <Input/>
+            <div className="container add__recipe">
+              <div className='add__recipe__content'>
+                <h3>Title</h3>
+                <Input className={"add__recipe__input"}/>
+                <h3>Description</h3>
+                <Input className={"add__recipe__input"}/>
+                <h3>Ingredients</h3>
+                <Input className={"add__recipe__input"}/>
+                <h3>Time(minutes)</h3>
+                <Input className={"add__recipe__input"}/>
+                <h3>Category</h3>
+                <select name="category" id="category-select">
+                  <option value="Breakfast">--Please choose an option--</option>
+                  <option value="Breakfast">Breakfast</option>
+                  <option value="Launch">Launch</option>
+                  <option value="Dinner">Dinner</option>
+                  <option value="Supper">Supper</option>
+                </select>
                 <div className='add__recipe__image'>
-                    <h3 className='add__recipe__title'>Add image</h3>
-                    <Button name={'load image'} className={'btn__loadimage'}/>
+                    <h3>Add image</h3>
+                    <Button name={'Load image'} className={'btn__loadimage'}/>
                 </div>
-                <h3 className='add__recipe__title'>Ingredients</h3>
-                <Input/>
-                <h3 className='add__recipe__title'>Time(minutes)</h3>
-                <Input/>
+                <Button name={'Save'} className={'btn__save'}/>
+              </div>
+                
             </div>
         </main>
     </section>

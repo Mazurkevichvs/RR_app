@@ -67,10 +67,12 @@
 }
 
 .btn__loadimage {
-    font-size: 30px;
+    font-size: 25px;
+    border-radius: 15px;
 }
 
 .add__recipe__image {
     display: flex;
-    
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
