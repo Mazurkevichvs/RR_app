@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import { Home, LogIn, Generator, Maintain, Registration } from './pages';
+import { Home, LogIn, Generator, Maintain, Registration, AddRecipe } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -47,6 +47,7 @@ const dispatch = useDispatch()
           }
         />
         <Route path="/Registration" element={<Registration/>} />
+        <Route path="/AddRecipe" element={<AddRecipe/>} />
       </Routes>
   );
 }

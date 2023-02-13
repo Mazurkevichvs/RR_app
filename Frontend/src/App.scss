@@ -1,14 +1,30 @@
+a {
+  text-decoration: none;
+}
+
+.wrapper {
+  height: 100vh;
+}
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+  button {
+      margin: 0 auto;
+  }
+}
+
 .container {
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column; 
   justify-content: center;
   align-items: center;
-     a {
-      width: 100%;
-      max-width: 520px;
-    } 
+  a {
+    width: 100%;
+    max-width: 520px;
+  } 
 }
 
 .app__title {
@@ -29,3 +45,7 @@
   }
 }
 
+.home, .login {
+  height: 100vh;
+  
+}

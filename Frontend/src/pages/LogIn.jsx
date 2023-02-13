@@ -37,7 +37,7 @@ function LogIn() {
   };
 
   return (
-    <div className="container">
+    <div className="container login">
       <Input placeholder="login" setInputValue={setLoginInput} />
       <div className='password__input'>
       <Input placeholder="password" setInputValue={setPasswordInput} type={isVisible ? 'text' : 'password'}/>
