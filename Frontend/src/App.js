@@ -28,7 +28,6 @@ const dispatch = useDispatch()
   
 
 // Add recipe feature
-// On reload to /Generator path
 
   return (
       <Routes>
