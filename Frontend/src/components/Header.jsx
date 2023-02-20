@@ -20,18 +20,20 @@ const Header = () => {
       })
       .then((res) => {
         dispatch(logOut());
+        localStorage.removeItem('token')
         navigate('/logIn');
-        console.log(res)
       })
       .catch((err) => console.log('ERROR', err));
   };
 
   return (
     <header>
-      <h2 className='header__title'>
-        RR <br />
-        APP
-      </h2>
+      <Link to='/Generator'>
+        <h2 className='header__title'>
+          RR <br />
+          APP
+        </h2>
+      </Link>
       {isLogged && <p className="user__title">User: {loginValue}</p>}
       {isLogged ? (
         <Button onClick={() => HandleLogOut()} className={'btn__log'} name={'Log out'} />

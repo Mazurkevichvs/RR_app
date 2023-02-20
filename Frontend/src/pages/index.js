@@ -3,6 +3,7 @@ export {default as LogIn} from './LogIn'
 export {default as Generator} from './Generator'
 export {default as Maintain} from './Maintain'
 export {default as Registration} from './Registration'
+export {default as AddRecipe} from './AddRecipe'
 
 
 

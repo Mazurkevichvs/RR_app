@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { setLogin, setIsLogged } from '../redux/slices/loginSlice';
+import { setLogin } from '../redux/slices/loginSlice';
 import axios from 'axios';
 
 function LogIn() {
@@ -37,7 +37,7 @@ function LogIn() {
   };
 
   return (
-    <div className="container">
+    <div className="container login">
       <Input placeholder="login" setInputValue={setLoginInput} />
       <div className='password__input'>
       <Input placeholder="password" setInputValue={setPasswordInput} type={isVisible ? 'text' : 'password'}/>

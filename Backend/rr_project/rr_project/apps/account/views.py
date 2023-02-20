@@ -104,7 +104,8 @@ class CreateUserView(CreateAPIView):
     serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
+        data_request = request.data
+        serializer = UserSerializer(data=data_request)
         response = Response()
         data = {}
         if serializer.is_valid():
@@ -113,8 +114,11 @@ class CreateUserView(CreateAPIView):
             data["email"] = user.email
             data["token"] = serializer.get_token(user)
             new_user = authenticate(
-                email=request.POST.get("email"),
-                password=request.POST.get("password"),
+                # TODO : See for better solution for authentication issue...
+                # email=request.POST.get("email"),
+                # password=request.POST.get("password"),
+                email=data_request.get("email"),
+                password=data_request.get("password"),
             )
             if new_user is not None and new_user.is_active:
                 response.set_cookie(
@@ -130,9 +134,7 @@ class CreateUserView(CreateAPIView):
                 csrf.get_token(request)
                 response.data = {"Success": "User login successfully", "data": data}
                 return response
-        else:
-            data = serializer.errors
-            return Response(data)
+        return Response(serializer.errors, status=400)
 
 
 create_user_view = CreateUserView.as_view()

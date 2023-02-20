@@ -1,0 +1,35 @@
+.add__recipe {
+    text-align: left;
+    align-self: flex-start;
+    h3 {
+        line-height: normal;
+        margin-bottom: 10px;
+        font-size: 30px;
+    }
+    .add__recipe__content {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
+
+.add__recipe__image {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+
+.add__recipe__input {
+    font-size: 25px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+ 
+}
+
+#category-select {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 50%;
+}
