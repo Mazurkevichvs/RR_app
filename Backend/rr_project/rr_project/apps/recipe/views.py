@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from recipe import serializers
 from rest_framework.generics import (CreateAPIView, ListAPIView,
                                      RetrieveUpdateDestroyAPIView)
-from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -73,7 +73,7 @@ recipe_detail_api_view = RecipeDetailAPIView.as_view()
 class RecipeCreateAPIView(CreateAPIView):
     serializer_class = serializers.RecipeSerializer
     permission_classes = [IsAuthenticated]
-    parser_classes = (MultiPartParser, FormParser)
+    parser_classes = (MultiPartParser, FormParser, JSONParser)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

@@ -10,7 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
-    image_url = serializers.ImageField(required=False)
+    # image_url = serializers.ImageField(required=False)
 
     class Meta:
         model = Recipe
