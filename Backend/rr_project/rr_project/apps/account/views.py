@@ -14,6 +14,8 @@ from .serializers import UserSerializer
 
 
 def get_tokens_for_user(user):
+    
+    # TODO : DO not create new tokens when log in, check if exist in DB
     refresh = RefreshToken.for_user(user)
     return {
         "access": str(refresh.access_token),
