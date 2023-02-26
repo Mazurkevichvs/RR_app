@@ -85,6 +85,7 @@ recipe_create_api_view = RecipeCreateAPIView.as_view()
 class RandomRecipeAPIView(ListAPIView):
     serializer_class = serializers.RecipeDetailSerializer
     parser_classes = (MultiPartParser, FormParser)
+    pagination_class = None
 
     def get_queryset(self):
         result_id = 0
@@ -101,6 +102,7 @@ class RandomPrivateRecipeAPIView(ListAPIView):
     serializer_class = serializers.RecipeDetailSerializer
     permission_classes = [IsAuthenticated]
     parser_classes = (MultiPartParser, FormParser)
+    pagination_class = None
 
     def get_queryset(self):
         user = self.request.user

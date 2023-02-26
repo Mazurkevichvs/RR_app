@@ -16,7 +16,7 @@ function Generator() {
   const getRandomRecipe = async () => {  
     await axios
       .get('http://localhost:8000/api/recipe/random')
-      .then((recipe) => dispatch(setRecipe(recipe.data.results)));
+      .then((recipe) => dispatch(setRecipe(recipe.data)));
     recipeRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -28,7 +28,7 @@ function Generator() {
             `Bearer ${token}`,
         },
       })
-      .then((recipe) => dispatch(setRecipe(recipe.data.results)));
+      .then((recipe) => dispatch(setRecipe(recipe.data)));
     recipeRef.current?.scrollIntoView({ behavior: 'smooth' });
     console.log(recipe)
   };
