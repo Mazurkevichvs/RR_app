@@ -11,7 +11,7 @@ const AddRecipe = () => {
   const [description, setDescription] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [time, setTime] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(parseInt(''));
   // const [image, setImage] = useState([]);
   const [error, setError] = useState(false);
   const { token } = useSelector((state) => state.loginSlice);
@@ -63,10 +63,10 @@ const AddRecipe = () => {
               name="category"
               id="category-select">
               <option value="">--Please choose an option--</option>
-              <option value="Breakfast">Breakfast</option>
-              <option value="Launch">Launch</option>
-              <option value="Dinner">Dinner</option>
-              <option value="Supper">Supper</option>
+              <option value="1">Breakfast</option>
+              <option value="2">Launch</option>
+              <option value="3">Dinner</option>
+              <option value="4">Supper</option>
             </select>
             {/* <div className="add__recipe__image">
               <h3>Add image</h3>
