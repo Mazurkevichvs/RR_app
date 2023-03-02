@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Aside, Button, Error, Header, Input } from '../components';
+import { Button, Error, Input, Header, Aside } from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowDown } from '@fortawesome/free-solid-svg-icons';
 import './AddRecipe.scss';
@@ -12,34 +12,33 @@ const AddRecipe = () => {
   const [ingredients, setIngredients] = useState('');
   const [time, setTime] = useState('');
   const [category, setCategory] = useState('');
-  const [image, setImage] = useState([]);
+  // const [image, setImage] = useState([]);
   const [error, setError] = useState(false);
-  const {token} = useSelector((state) => state.loginSlice);
+  const { token } = useSelector((state) => state.loginSlice);
 
   const postRecipe = () => {
     const recipe = {
-      image,
+      // image,
       title,
       description,
       time,
       slug: title,
       ingredients,
-      category,
+      category
     };
     if (Object.values(recipe).some((x) => x === null || x === '')) {
-      
       setError(true);
     } else {
-      console.log(recipe)
-      axios.post('http://localhost:8000/api/recipe/create/',recipe,{
-        headers: {
-          'Authorization':
-            `Bearer ${token}`,
-        }
-      })
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
-      setError(false)
+      console.log(recipe);
+      axios
+        .post('http://localhost:8000/api/recipe/create/', recipe, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      setError(false);
     }
   };
 
@@ -47,7 +46,7 @@ const AddRecipe = () => {
     <section className="wrapper">
       <Header />
       <main>
-        <Aside />
+      <Aside/>
         <div className="container add__recipe">
           <div className="add__recipe__content">
             <h3>Title</h3>
@@ -69,7 +68,7 @@ const AddRecipe = () => {
               <option value="Dinner">Dinner</option>
               <option value="Supper">Supper</option>
             </select>
-            <div className="add__recipe__image">
+            {/* <div className="add__recipe__image">
               <h3>Add image</h3>
               <label htmlFor="image-upload" className="btn btn__loadimage">
                 <FontAwesomeIcon icon={faCloudArrowDown} /> Load image
@@ -80,7 +79,7 @@ const AddRecipe = () => {
                 type="file"
                 accept="image/*"
               />
-            </div>
+            </div> */}
             {error && <Error errorMessage={'All fields are required!'} />}
             <Button onClick={postRecipe} name={'Save'} className={'btn__save'} />
           </div>

@@ -45,14 +45,14 @@ function LogIn() {
       </div>
       {error && <Error errorMessage={error}/>}
       <p>
-        Don't have an account? <Link to="/Registration">Register now!</Link>
+        Don't have an account? <Link to="/registration">Register now!</Link>
       </p>
       <Button
         onClick={() => logIn(loginInput, passwordInput)}
         className={loginInput && passwordInput ? 'btn__logs' : 'btn__logs btn__disabled'}
         name={'Log in'}
       />
-      <Link to="/Generator">
+      <Link to="/generator">
         <Button className={'btn__logs'} name={'Continue offline'} />
       </Link>
     </div>

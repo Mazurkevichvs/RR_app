@@ -2,13 +2,10 @@ import React from 'react';
 import './RecipeItem.scss';
 
 
-const RecipeItem = ({recipe}) => {
-
-    console.log(recipe)
-    
+const RecipeItem = ({recipe}) => {    
   return (
     <div className='recipe__item'>
-        <img src={recipe.image_url !== null ? recipe.image_url : '/no-image.jpg'} alt="meal"/>
+        <img src={recipe.image_url ? recipe.image_url : '/no-image.jpg'} alt="meal"/>
         <h3>{recipe.title}</h3>
     </div>
   )
