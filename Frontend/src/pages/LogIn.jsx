@@ -1,24 +1,20 @@
 import { React, useState } from 'react';
-import { Input, Button, Error } from '../components';
+import { Input, Button, Alert } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { setLogin } from '../redux/slices/loginSlice';
+import { setLogin, setPasswordVisibility } from '../redux/slices/loginSlice';
 import axios from 'axios';
 
 function LogIn() {
   const dispatch = useDispatch();
   const [loginInput, setLoginInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
-  const [isVisible, setIsVisible] = useState(false)
   const [error, setError] = useState(null)
   const navigate = useNavigate();
-  const togglePasswordVisibility = () => {
-    setIsVisible(prev => !prev)
-  }
-
-
+  const {isVisible} = useSelector((state) => state.loginSlice)
+  
   const logIn = async (loginInput, passwordInput) => {
     const user = {
       username: loginInput,
@@ -31,7 +27,7 @@ function LogIn() {
         console.log(res)
         dispatch(setLogin({loginInput, passwordInput, token}));
         localStorage.setItem('token', token)
-        navigate('/Generator');
+        navigate('/generator');
       })
       .catch((err) => setError(err.response.data.Invalid));
   };
@@ -41,9 +37,9 @@ function LogIn() {
       <Input placeholder="login" setInputValue={setLoginInput} />
       <div className='password__input'>
       <Input placeholder="password" setInputValue={setPasswordInput} type={isVisible ? 'text' : 'password'}/>
-      <FontAwesomeIcon icon={faEye} onClick={togglePasswordVisibility}/>
+      <FontAwesomeIcon icon={faEye} onClick={() => dispatch(setPasswordVisibility())}/>
       </div>
-      {error && <Error errorMessage={error}/>}
+      {error && <Alert alertMessage={error} className={'error'} type={false} />}
       <p>
         Don't have an account? <Link to="/registration">Register now!</Link>
       </p>

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Recipe, Button, Aside, Header, Error} from '../components';
+import { Recipe, Button, Aside, Header, Alert} from '../components';
 import { useSelector, useDispatch } from 'react-redux';
 import { setRecipe } from '../redux/slices/recipeSlice';
 import './Generator.scss';
@@ -29,8 +29,7 @@ function Generator() {
         },
       })
       .then((recipe) => dispatch(setRecipe(recipe.data)));
-    recipeRef.current?.scrollIntoView({ behavior: 'smooth' });
-    console.log(recipe)
+    recipeRef.current?.scrollIntoView({ behavior: 'smooth' })
   };
 
   return (
@@ -42,7 +41,7 @@ function Generator() {
             <div className="generate__btns">
               {isLogged && <Button className={'btn__generate'} name={'Generate from your recepies'} onClick={() => getRandomOwnRecipe()}/>}
               <Button className={'btn__generate'} name={'Generate recipe from DB'} onClick={() => getRandomRecipe()}/>
-              {recipe?.length === 0 && <Error errorMessage={`You don't have own recipes yet`}/>} 
+              {recipe?.length === 0 && <Alert alertMessage={`You don't have own recipes yet`} className={'error'} type={false} />} 
             </div>          
         </main>
       </section>

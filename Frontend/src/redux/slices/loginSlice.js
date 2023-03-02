@@ -4,7 +4,8 @@ const initialState = {
     loginValue: null,
     passwordValue: null,
     isLogged: false,
-    token: null
+    token: null,
+    isVisible: false
 }
 
 export const loginSlice = createSlice({
@@ -27,10 +28,13 @@ export const loginSlice = createSlice({
         state.isLogged = true
         state.loginValue = action.payload.login
         state.token = action.payload.token
+      },
+      setPasswordVisibility: (state) => {
+        state.isVisible = !state.isVisible
       }
     },
   })
   
-  export const { setLogin, logOut, setIsLogged } = loginSlice.actions
+  export const { setLogin, logOut, setIsLogged, setPasswordVisibility } = loginSlice.actions
   
   export default loginSlice.reducer

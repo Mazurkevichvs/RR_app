@@ -1,7 +1,6 @@
 .recipe__container {
     height: 100vh;
     overflow: hidden;
-
 }
 
 .recipe__top {
@@ -44,20 +43,25 @@
     justify-content:space-between ;
     line-height: 1; 
     padding:20px 40px;
+    
+    ul {
+        width: 25%;
+    }
     p {
-        font-size: 30px;
+        text-align: justify;
+        width: 75%;
+        font-size: 20px;
     }
     span {
         font-size: 20px;
     }
 }
 
-.ingredients {    
-    max-width: 40%;    
+.ingredients {        
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    font-size: 30px;
+    font-size: 20px;
     li {
         margin-top: 10px;
         &:first-child {

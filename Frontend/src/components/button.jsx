@@ -1,11 +1,12 @@
 import React from 'react';
-import "./button.scss";
+import './button.scss';
 
-function Button({onClick,className,name, type}) { 
-
+function Button({ onClick, className, name, type }) {
   return (
-    <button type={type} onClick={onClick} className={className ? `btn ${className}` : "btn"}>{name}</button>
-  )
+    <button type={type} onClick={onClick} className={className ? `btn ${className}` : 'btn'}>
+      {name}
+    </button>
+  );
 }
 
-export default Button
+export default Button;
