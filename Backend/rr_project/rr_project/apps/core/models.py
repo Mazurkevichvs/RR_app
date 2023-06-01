@@ -54,7 +54,7 @@ class Recipe(models.Model):
     time_minutes = models.IntegerField(default=0)
     slug = models.CharField(max_length=255)
     ingredients = models.TextField(default="")
-    image_url = models.ImageField(upload_to=image_path, blank=True, null=True)
+    # image_url = models.ImageField(upload_to=image_path, blank=True, null=True)
 
     class Meta:
         verbose_name = "recipe"

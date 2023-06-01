@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <header>
-      <Link to='/Generator'>
+      <Link to='/generator'>
         <h2 className='header__title'>
           RR <br />
           APP
@@ -38,7 +38,7 @@ const Header = () => {
       {isLogged ? (
         <Button onClick={() => HandleLogOut()} className={'btn__log'} name={'Log out'} />
       ) : (
-        <Link to="/LogIn">
+        <Link to="/logIn">
           <Button className={'btn__log'} name={'Log in'} />
         </Link>
       )}

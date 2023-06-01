@@ -3,25 +3,23 @@ import './RecipeList.scss';
 import RecipeItem from './RecipeItem';
 import { Link } from 'react-router-dom';
 
-function RecipeList({recipes}) {
-
-const recipe = recipes.map(rec => <RecipeItem key={rec.id} recipe={rec}/>)
-
+function RecipeList({ recipes }) {
+  const recipe = recipes.map((rec) => {
+    console.log(rec);
+    return <RecipeItem key={rec.id} recipe={rec} />
+    
+  });
 
   return (
     <div className="recipe__wrapper">
-      <div className='recipe__list'>
+      <div className="recipe__list">
         <Link to="/AddRecipe">
-          <div className='recipe__item first__recipe'>
-              +
-          </div>
+          <div className="recipe__item first__recipe">+</div>
         </Link>
         {recipe}
-         
       </div>
     </div>
-    
-  )
+  );
 }
 
-export default RecipeList
+export default RecipeList;

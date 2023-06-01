@@ -8,7 +8,9 @@ function Maintain() {
   useEffect(() => {
      axios
       .get('http://localhost:8000/api/recipe/list/')
-      .then((res) => setRecipes(res.data.results));
+      .then((res) => {
+        setRecipes(res.data.results)
+      });
   },[])
 
   return (

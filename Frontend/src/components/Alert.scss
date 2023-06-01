@@ -1,0 +1,25 @@
+.alert__container {
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    svg {
+        margin-right: 5px;
+    }
+}
+
+.error {
+    border: 1px solid red;
+    svg {
+        color: red;
+    }
+}
+
+.success {
+    border: 1px solid rgb(0, 182, 0);
+    svg {
+        color: rgb(0, 182, 0);
+    }
+}
